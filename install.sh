@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Python Dev
+
 cp ./.vimrc ~/
 cp ./.tmux.conf ~/
 
@@ -21,3 +23,11 @@ wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_s
 
 sudo pip install jedi
 sudo pip install rope
+
+# C++ Dev
+
+cd ~/.vim/bundle
+git clone https://github.com/Valloric/YouCompleteMe.git
+cd YouCompleteMe
+git submodule update --init --recursive
+./install.sh --clang-completer
