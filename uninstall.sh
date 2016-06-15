@@ -1,4 +1,4 @@
 #!/bin/bash
 
 rm -rf ~/.vim
-rm -f ~/.vim*
+rm -rf ~/.vim*
