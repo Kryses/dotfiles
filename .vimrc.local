@@ -1,0 +1,2 @@
+colorscheme wombat256mod
+let g:airline_powerline_fonts=1

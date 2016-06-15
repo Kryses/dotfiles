@@ -5,29 +5,20 @@
 cp ./.vimrc ~/
 cp ./.tmux.conf ~/
 
-mkdir -p ~/.vim/autoload
-curl -so ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
 
-mkdir -p ~/.vim/colors && cd ~/.vim/colors
-wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+wget -O ~/.vim/bundle/vim-colors/colors/wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
 
-mkdir -p ~/.vim/bundle && cd ~/.vim/bundle
-git clone https://github.com/Lokaltog/vim-powerline.git
-git clone https://github.com/kien/ctrlp.vim.git
-git clone https://github.com/klen/python-mode
-git clone https://github.com/davidhalter/jedi-vim.git
-git clone https://github.com/scrooloose/nerdtree.git
+cp ./.vimrc.local ~/
+cp ./.vimrc.before.local ~/
 
-mkdir -p ~/.vim/ftplugin
-wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
-
+vim -c '' \
+    -c 'BundleInstall!' \
+    -c 'qa!'
 sudo pip install jedi
 sudo pip install rope
 
+
 # C++ Dev
 
-cd ~/.vim/bundle
-git clone https://github.com/Valloric/YouCompleteMe.git
-cd YouCompleteMe
-git submodule update --init --recursive
-sudo ./install.sh --clang-completer
+sudo ~/.vim/bundle/YouCompleteMe/install.sh --clang-completer
