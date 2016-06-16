@@ -11,6 +11,7 @@ wget -O ~/.vim/bundle/vim-colors/colors/wombat256mod.vim http://www.vim.org/scri
 
 cp ./.vimrc.local ~/
 cp ./.vimrc.before.local ~/
+cp ./.vimrc.bundle.local ~/
 
 vim -c '' \
     -c 'BundleInstall!' \
