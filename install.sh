@@ -1,5 +1,29 @@
 #!/bin/bash
 
+yum -y install gcc-c++ ncurses-devel python-devel
+git clone https://github.com/vim/vim.git
+cd vim/src && git check v8.0.1522
+
+./configure \
+  --disable-nls \
+  --enable-cscope \
+  --enable-gui=no \
+  --enable-multibyte  \
+  --enable-pythoninterp \
+  --enable-rubyinterp \
+  --prefix=$HOME/.local/vim \
+  --with-features=huge  \
+  --with-python-config-dir=/usr/lib/python2.7/config \
+  --with-tlib=ncurses \
+  --without-x
+
+make && make install
+
+echo 'if [ -d "$HOME/.local/vim/bin/" ] ; then' >> ~/.bashrc
+echo '	PATH="$HOME/.local/vim/bin/:$PATH"' >> ~/.bashrc
+echo 'fi' >> ~/.bashrc
+source ~/.bashrc
+
 # Python Dev
 
 cp ./.vimrc ~/
