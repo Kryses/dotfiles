@@ -1,0 +1,159 @@
+# [Created by task 2.6.2 11/2/2023 21:45:03]
+# Taskwarrior program configuration file.
+# For more documentation, see https://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# You can also refence environment variables:
+#   variable=$HOME/task
+#   variable=$VALUE
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=/home/kryses/.task
+
+# To use the default location of the XDG directories,
+# move this configuration file from ~/.taskrc to ~/.config/task/taskrc and uncomment below
+
+#data.location=~/.local/share/task
+#hooks.location=~/.config/task/hooks
+
+default.project=inbox
+priority.default=M
+# Color theme (uncomment one to use)
+#include light-16.theme
+#include light-256.theme
+#include dark-16.theme
+#include dark-256.theme
+#include dark-red-256.theme
+#include dark-green-256.theme
+#include dark-blue-256.theme
+#include dark-violets-256.theme
+#include dark-yellow-green.theme
+#include dark-gray-256.theme
+#include dark-gray-blue-256.theme
+#include solarized-dark-256.theme
+#include solarized-light-256.theme
+#include no-color.theme
+
+
+news.version=2.6.0
+regex=on
+journal.time=one
+search.case.sensative=no
+active.indicator=🕑
+
+
+#Contexts
+context.WK = +WK #work
+context.HM = +HM 
+context.HAB = +HAB #habits
+context.HOME = +HM or +HAB
+context.INBOX = project:inbox
+
+alias.punt = modify wait:1d
+alias.somday = wait:somday
+alias.up-wk = project:work +WK +UNPLANNED due:tomorrow priority:H
+alias.up-hm = project:home +HM +UNPLANNED due:tomorrow priority:H
+alias.up-yt = project:home +HM +YOUTUBE +UNPLANNED due:tomorrow priority:H
+alias.meeting = project:work +WK +MEETING due:tomorrow priority:H
+alias.up-meeting = project:work +WK +UNPLANNED +MEETING due:tomorrow priority:H
+alias.home = +HM or +HAB
+
+#Reports
+
+## Inbox
+report.in.columns = id,tags,description
+report.in.description = Inbox
+report.in.filter = project:inbox -WAITING status:pending limit:page 
+report.in.labels = ID,Tags,Description
+
+##Review
+report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
+report._reviewed.columns=uuid
+report._reviewed.sort=reviewed+,modified+
+report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+
+##Next
+report.next.labels=Id,Description,Active,󰖡,󰘃,󰔹,Project,,󱑈,󱫌,
+report.next.columns=id,description.count,start.age,size,priority,pts,project,tags.count,scheduled.countdown,due.countdown,urgency
+
+##sidebar
+report.side.labels=Id,(P),Description,urg
+report.side.columns=id,priority,description,urgency
+report.side.sort=urgency-
+report.side.filter=(-COMPLETED -DELETED -WAITING) and limit:page
+
+urgency.user.tag.next.coefficient=15.0 # +next tag
+urgency.due.coefficient=12.0 # overdue or near due date
+urgency.blocking.coefficient=8.0 # blocking other tasks
+urgency.uda.priority.F.coefficient=8.0 # fire Priority
+urgency.uda.priority.H.coefficient=6.0 # high Priority
+urgency.uda.priority.M.coefficient=3.9 # medium Priority
+urgency.uda.priority.L.coefficient=1.8 # low Priority
+urgency.scheduled.coefficient=5.0 # scheduled tasks
+urgency.active.coefficient=4.0 # already started tasks
+urgency.age.coefficient=2.0 # coefficient for age
+urgency.annotations.coefficient=1.0 # has annotations
+urgency.tags.coefficient=1.0 # has tags
+urgency.waiting.coefficient=-3.0 # waiting task
+urgency.blocked.coefficient=-15.0 # blocked by other tasks
+#
+#Projects
+urgency.user.project.home.lifeos.tasks.coefficient=2.0    
+urgency.user.project.home.lifeos.coefficient=1.0    
+
+#Tags
+urgency.user.tag.DELEGATED.coefficient=-15.0    
+urgency.user.tag.support.coefficient=1.0    
+
+uda.priority.values=F,H,M,L
+
+uda.size.type=string
+uda.size.label=Size 😅
+uda.size.default=L
+uda.size.values=H,M,L
+urgency.uda.size.H.coefficient=0.8
+urgency.uda.size.M.coefficient=1.0
+urgency.uda.size.L.coefficient=1.1
+
+uda.pts.type=numeric
+uda.pts.label=Score 🏆
+uda.pts.default=1
+
+uda.reviewed.type=date
+uda.reviewed.label=Reviewed
+
+nag=You have more important tasks
+uda.jiraissuetype.type=string
+uda.jiraissuetype.label=Issue Type
+uda.jirasummary.type=string
+uda.jirasummary.label=Jira Summary
+uda.jiraurl.type=string
+uda.jiraurl.label=Jira URL
+uda.jiradescription.type=string
+uda.jiradescription.label=Jira Description
+uda.jiraid.type=string
+uda.jiraid.label=Jira Issue ID
+uda.jiraestimate.type=numeric
+uda.jiraestimate.label=Estimate
+uda.jirafixversion.type=string
+uda.jirafixversion.label=Fix Version
+uda.jiracreatedts.type=date
+uda.jiracreatedts.label=Created At
+uda.jirastatus.type=string
+uda.jirastatus.label=Jira Status
+uda.jirasubtasks.type=string
+uda.jirasubtasks.label=Jira Subtasks
+
+taskd.certificate=\/home\/kryses\/.task\/kryses.cert.pem
+taskd.key=\/home\/kryses\/.task\/kryses.key.pem
+#taskd.ca=\/home\/kryses\/.task\/ca.cert.pem
+taskd.credentials=Kryses\/kryses\/46db8d6e-be28-4dc4-b191-8a9f7cd171d4
+taskd.server = 192.168.1.224:53589
+taskd.trust = allow all
