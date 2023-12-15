@@ -484,35 +484,34 @@ keys.extend(
     ]
 )
 
-
 # --------------------------------------------------------
 # Pywal Colors
 # --------------------------------------------------------
-def hex_to_rgba(hex):
-    logger.info(f"hex_to_rgba: {hex}")
-    hex = hex.lstrip("#")
-    hlen = len(hex)
-    return tuple(int(hex[i : i + hlen // 3], 16) for i in range(0, hlen, hlen // 3))
-
 
 colors = os.path.expanduser("~/.cache/wal/colors.json")
 colordict = json.load(open(colors))
-Color0 = hex_to_rgba(colordict["colors"]["color0"])
-Color1 = hex_to_rgba(colordict["colors"]["color1"])
-Color2 = hex_to_rgba(colordict["colors"]["color2"])
-Color3 = hex_to_rgba(colordict["colors"]["color3"])
-Color4 = hex_to_rgba(colordict["colors"]["color4"])
-Color5 = hex_to_rgba(colordict["colors"]["color5"])
-Color6 = hex_to_rgba(colordict["colors"]["color6"])
-Color7 = hex_to_rgba(colordict["colors"]["color7"])
-Color8 = hex_to_rgba(colordict["colors"]["color8"])
-Color9 = hex_to_rgba(colordict["colors"]["color9"])
-Color10 = hex_to_rgba(colordict["colors"]["color10"])
-Color11 = hex_to_rgba(colordict["colors"]["color11"])
-Color12 = hex_to_rgba(colordict["colors"]["color12"])
-Color13 = hex_to_rgba(colordict["colors"]["color13"])
-Color14 = hex_to_rgba(colordict["colors"]["color14"])
-Color15 = hex_to_rgba(colordict["colors"]["color15"])
+Color0 = colordict["colors"]["color0"]
+Color1 = colordict["colors"]["color1"]
+Color2 = colordict["colors"]["color2"]
+Color3 = colordict["colors"]["color3"]
+Color4 = colordict["colors"]["color4"]
+Color5 = colordict["colors"]["color5"]
+Color6 = colordict["colors"]["color6"]
+Color7 = colordict["colors"]["color7"]
+Color8 = colordict["colors"]["color8"]
+Color9 = colordict["colors"]["color9"]
+Color10 = colordict["colors"]["color10"]
+Color11 = colordict["colors"]["color11"]
+Color12 = colordict["colors"]["color12"]
+Color13 = colordict["colors"]["color13"]
+Color14 = colordict["colors"]["color14"]
+Color15 = colordict["colors"]["color15"]
+
+
+def hex_to_rgba(hex):
+    hex = hex.lstrip("#")
+    hlen = len(hex)
+    return tuple(int(hex[i : i + hlen // 3], 16) for i in range(0, hlen, hlen // 3))
 
 
 # --------------------------------------------------------
