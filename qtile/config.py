@@ -8,10 +8,7 @@
 # Icons: https://fontawesome.com/search?o=r&m=free
 
 import os
-import re
-import socket
 import subprocess
-import psutil
 import json
 from libqtile import hook
 from libqtile import qtile
@@ -24,9 +21,9 @@ from libqtile.config import (
     Key,
     Match,
     Screen,
-    ScratchPad,
     DropDown,
     KeyChord,
+    ScratchPad,
 )
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -37,9 +34,13 @@ from pathlib import Path
 from libqtile.log_utils import logger
 from libqtile.backend.wayland import InputConfig
 
-from qtile_extras import widget
-from qtile_extras.widget.decorations import RectDecoration
-from qtile_extras.widget.decorations import PowerLineDecoration
+from qtile_extras import widget as ex_widget
+from qtile_extras.widget.decorations import BorderDecoration, PowerLineDecoration
+
+
+def get_autorandr_profile():
+    return subprocess.check_output("autorandr --current", shell=True, text=True).strip()
+
 
 keyboard_layout = "us"
 # --------------------------------------------------------
@@ -50,11 +51,12 @@ keyboard_layout = "us"
 
 # Show wlan status bar widget (set to False if wired network)
 # show_wlan = True
-show_wlan = False
+autorandr_profile = get_autorandr_profile() or "docked"
+show_wlan = True
 
 # Show bluetooth status bar widget
 # show_bluetooth = True
-show_bluetooth = False
+show_bluetooth = True
 
 # --------------------------------------------------------
 # General Variables
@@ -347,6 +349,86 @@ dgroups_key_binder = simple_key_binder(mod)
 # Scratchpads
 # --------------------------------------------------------
 
+scratch_pad_postions = {
+    "docked": {
+        "chatgpt": {
+            "x": 0.3,
+            "y": 0.1,
+            "width": 0.40,
+            "height": 0.7,
+        },
+        "notes": {
+            "x": 0.69,
+            "y": 0.05,
+            "width": 0.3,
+            "height": 0.7,
+        },
+        "terminal": {
+            "x": 0.3,
+            "y": 0.1,
+            "width": 0.40,
+            "height": 0.7,
+        },
+        "vit": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.20,
+            "height": 0.6,
+        },
+        "scrcpy": {
+            "x": 0.8,
+            "y": 0.05,
+            "width": 0.15,
+            "height": 0.6,
+        },
+        "slack": {
+            "x": 0.69,
+            "y": 0.05,
+            "width": 0.3,
+            "height": 0.7,
+        },
+    },
+    "mobile": {
+        "chatgpt": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.6,
+        },
+        "notes": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.6,
+        },
+        "terminal": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.6,
+        },
+        "vit": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.6,
+        },
+        "scrcpy": {
+            "x": 0.8,
+            "y": 0.05,
+            "width": 0.15,
+            "height": 0.6,
+        },
+        "slack": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.6,
+        },
+    },
+}
+
+current_scratch_pad_postions = scratch_pad_postions[autorandr_profile]
 groups.append(
     ScratchPad(
         "6",
@@ -354,56 +436,38 @@ groups.append(
             DropDown(
                 "chatgpt",
                 "qutebrowser --target window -R https://chat.openai.com",
-                x=0.3,
-                y=0.1,
-                width=0.40,
-                height=0.7,
                 on_focus_lost_hide=False,
+                **current_scratch_pad_postions["chatgpt"],
             ),
             DropDown(
                 "notes",
                 f"alacritty -e nvim '{home}/notes/kryses/index.norg'",
-                x=0.69,
-                y=0.05,
-                width=0.3,
-                height=0.7,
                 on_focus_lost_hide=False,
+                **current_scratch_pad_postions["notes"],
             ),
             DropDown(
                 "terminal",
                 "alacritty",
-                x=0.3,
-                y=0.1,
-                width=0.40,
-                height=0.7,
                 on_focus_lost_hide=True,
+                **current_scratch_pad_postions["terminal"],
             ),
             DropDown(
                 "vit",
                 "alacritty -e vit",
-                x=0.05,
-                y=0.05,
-                width=0.20,
-                height=0.6,
                 on_focus_lost_hide=True,
+                **current_scratch_pad_postions["vit"],
             ),
             DropDown(
                 "scrcpy",
                 "scrcpy -d",
-                x=0.8,
-                y=0.05,
-                width=0.15,
-                height=0.6,
                 on_focus_lost_hide=False,
+                **current_scratch_pad_postions["scrcpy"],
             ),
             DropDown(
                 "slack",
                 "slack",
-                x=0.69,
-                y=0.05,
-                width=0.3,
-                height=0.7,
                 on_focus_lost_hide=False,
+                **current_scratch_pad_postions["slack"],
             ),
         ],
     )
@@ -420,28 +484,36 @@ keys.extend(
     ]
 )
 
+
 # --------------------------------------------------------
 # Pywal Colors
 # --------------------------------------------------------
+def hex_to_rgba(hex):
+    logger.info(f"hex_to_rgba: {hex}")
+    hex = hex.lstrip("#")
+    hlen = len(hex)
+    return tuple(int(hex[i : i + hlen // 3], 16) for i in range(0, hlen, hlen // 3))
+
 
 colors = os.path.expanduser("~/.cache/wal/colors.json")
 colordict = json.load(open(colors))
-Color0 = colordict["colors"]["color0"]
-Color1 = colordict["colors"]["color1"]
-Color2 = colordict["colors"]["color2"]
-Color3 = colordict["colors"]["color3"]
-Color4 = colordict["colors"]["color4"]
-Color5 = colordict["colors"]["color5"]
-Color6 = colordict["colors"]["color6"]
-Color7 = colordict["colors"]["color7"]
-Color8 = colordict["colors"]["color8"]
-Color9 = colordict["colors"]["color9"]
-Color10 = colordict["colors"]["color10"]
-Color11 = colordict["colors"]["color11"]
-Color12 = colordict["colors"]["color12"]
-Color13 = colordict["colors"]["color13"]
-Color14 = colordict["colors"]["color14"]
-Color15 = colordict["colors"]["color15"]
+Color0 = hex_to_rgba(colordict["colors"]["color0"])
+Color1 = hex_to_rgba(colordict["colors"]["color1"])
+Color2 = hex_to_rgba(colordict["colors"]["color2"])
+Color3 = hex_to_rgba(colordict["colors"]["color3"])
+Color4 = hex_to_rgba(colordict["colors"]["color4"])
+Color5 = hex_to_rgba(colordict["colors"]["color5"])
+Color6 = hex_to_rgba(colordict["colors"]["color6"])
+Color7 = hex_to_rgba(colordict["colors"]["color7"])
+Color8 = hex_to_rgba(colordict["colors"]["color8"])
+Color9 = hex_to_rgba(colordict["colors"]["color9"])
+Color10 = hex_to_rgba(colordict["colors"]["color10"])
+Color11 = hex_to_rgba(colordict["colors"]["color11"])
+Color12 = hex_to_rgba(colordict["colors"]["color12"])
+Color13 = hex_to_rgba(colordict["colors"]["color13"])
+Color14 = hex_to_rgba(colordict["colors"]["color14"])
+Color15 = hex_to_rgba(colordict["colors"]["color15"])
+
 
 # --------------------------------------------------------
 # Setup Layout Theme
@@ -451,7 +523,7 @@ layout_theme = {
     "border_width": 3,
     "margin": 10,
     "border_focus": "#ffffff",
-    "border_normal": Color2,
+    "border_normal": Color6,
     "single_border_width": 3,
 }
 
@@ -481,19 +553,15 @@ extension_defaults = widget_defaults.copy()
 
 decor_left = {
     "decorations": [
-        RectDecoration(
-            radius=10,
-            group=True,
-        )
+        PowerLineDecoration(path="forward_slash", shift=5),
+        BorderDecoration(colour=Color7, border_width=[0, 0, 4, 0], padding_x=5),
     ],
 }
 
 decor_right = {
     "decorations": [
-        RectDecoration(
-            radius=10,
-            group=True,
-        )
+        PowerLineDecoration(path="back_slash"),
+        BorderDecoration(colour=Color7, border_width=[0, 0, 4, 0], padding_x=5),
     ],
 }
 
@@ -502,32 +570,26 @@ decor_right = {
 # --------------------------------------------------------
 
 widget_list = [
-    widget.TextBox(
+    ex_widget.CurrentLayoutIcon(
         **decor_left,
-        background=Color1 + ".4",
-        text="󰗼 ",
-        foreground="ffffff",
-        desc="",
-        padding=10,
-        fontsize=20,
-        mouse_callbacks={"Button1": lambda: qtile.spawn("rofi -show drun")},
+        background=Color1,
     ),
     widget.GroupBox(
         **decor_left,
-        background=Color1 + ".1",
+        background=(0.0, 0.0, 0.0, 0.0),
         highlight_method="block",
-        highlight="ffffff",
-        block_border="ffffff",
-        highlight_color=["ffffff", "ffffff"],
+        highlight=Color8 + ".5",
+        block_border=Color1,
+        highlight_color=[Color8 + ".5", Color8 + ".5"],
         block_highlight_text_color="000000",
         foreground="ffffff",
-        rounded=False,
+        rounded=True,
         this_current_screen_border="ffffff",
         active="ffffff",
     ),
     widget.TextBox(
         **decor_left,
-        background=Color1 + ".4",
+        background=Color1 + ".8",
         text="  ",
         foreground="ffffff.6",
         fontsize=18,
@@ -539,7 +601,7 @@ widget_list = [
     ),
     widget.TextBox(
         **decor_left,
-        background=Color1 + ".4",
+        background=Color1 + ".6",
         text="   ",
         foreground="ffffff.6",
         fontsize=18,
@@ -550,64 +612,85 @@ widget_list = [
         },
     ),
     widget.WindowName(
-        **decor_left, max_chars=50, background=Color2 + ".4", width=400, padding=10
+        **decor_left, max_chars=50, background=Color1 + ".4", width=400, padding=10
     ),
     widget.Spacer(),
-    widget.Spacer(length=30),
-    widget.TextBox(**decor_right, background="#000000.3"),
+    widget.Spacer(decorations=[PowerLineDecoration(path="back_slash")], length=30),
+    widget.CPU(
+        **decor_right,
+        background=Color6 + ".4",
+        padding=10,
+        format="CPU {freq_current}GHz {load_percent}%",
+    ),
+    widget.CPUGraph(
+        **decor_right,
+        background=Color6 + ".4",
+        border_color=Color3 + ".8",
+        graph_color=Color3,
+        padding=10,
+        type="box",
+    ),
     widget.Memory(
         **decor_right,
-        background=Color10 + ".4",
+        background=Color6 + ".6",
         padding=10,
         measure_mem="G",
-        format="{MemUsed:.0f}{mm} ({MemTotal:.0f}{mm})",
+        format="{MemUsed:.0f}{mm}/{MemTotal:.0f}{mm}({MemPercent}%)",
+    ),
+    widget.MemoryGraph(
+        **decor_right,
+        background=Color6 + ".6",
+        border_color=Color6 + ".6",
+        graph_color=Color5,
+        padding=10,
+        type="box",
     ),
     widget.Volume(
         **decor_right,
-        background=Color12 + ".4",
+        background=Color6 + ".8",
         padding=10,
         fmt="Vol: {}",
     ),
     widget.DF(
         **decor_right,
         padding=10,
-        background=Color8 + ".4",
+        background=Color6 + ".8",
         visible_on_warn=False,
         format="{p} {uf}{m} ({r:.0f}%)",
     ),
-    widget.Bluetooth(
-        **decor_right,
-        background=Color2 + ".4",
-        padding=10,
-        mouse_callbacks={"Button1": lambda: qtile.spawn("blueman-manager")},
-    ),
-    widget.Wlan(
-        **decor_right,
-        background=Color2 + ".4",
-        padding=10,
-        format="{essid} {percent:2.0%}",
-        mouse_callbacks={"Button1": lambda: qtile.spawn("alacritty -e nmtui")},
-    ),
     widget.Clock(
         **decor_right,
-        background=Color4 + ".4",
+        background=Color6,
         padding=10,
         format="%Y-%m-%d / %I:%M %p",
     ),
-    widget.TextBox(
-        **decor_right,
-        background=Color2 + ".4",
-        padding=5,
-        text="",
-        fontsize=20,
-        mouse_callbacks={
-            "Button1": lambda: qtile.spawn(home + "/dotfiles/scripts/cliphist.sh")
-        },
+    ex_widget.UPowerWidget(
+        background=Color6,
+        battery_height=15,
+        battery_name="BAT1",
+        battery_width=40,
+        border_charge_colour=Color6,
+        border_colour=Color6,
+        border_critical_colour=Color6,
+        fill_charge="#348502.9",
+        fill_critical="#cc0000.9",
+        fill_low="#F1D70B.9",
+        fill_normal=Color6,
+        font="sans",
+        fontsize=None,
+        foreground="ffffff",
+        margin=5,
+        mouse_callbacks={},
+        percentage_critical=0.1,
+        percentage_low=0.2,
+        spacing=10,
+        text_charging="({percentage:.0f}%) {ttf} until fully charged",
+        text_discharging="({percentage:.0f}%) {tte} until empty",
+        text_displaytime=5,
     ),
-    widget.Systray(padding=3),
     widget.TextBox(
         **decor_right,
-        background=Color2 + ".4",
+        background=Color6,
         padding=5,
         text=" ",
         fontsize=20,
@@ -617,17 +700,12 @@ widget_list = [
             )
         },
     ),
+    ex_widget.Systray(background=Color6, padding=0),
+    widget.TextBox(
+        background=Color6,
+        padding=2,
+    ),
 ]
-
-# Hide Modules if not on laptop
-if show_wlan == False:
-    del widget_list[12:13]
-
-if show_bluetooth == False:
-    del widget_list[11:12]
-
-if core_name == "x11":
-    del widget_list[12:13]
 
 # --------------------------------------------------------
 # Screens
@@ -678,8 +756,8 @@ mouse = [
 
 floating_layout = layout.Floating(
     border_width=3,
-    border_focus=Color2,
-    border_normal="FFFFFF",
+    border_focus="FFFFFF",
+    border_normal=Color2,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,

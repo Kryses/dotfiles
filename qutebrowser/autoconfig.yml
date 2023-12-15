@@ -6,6 +6,10 @@
 
 config_version: 2
 settings:
+  bindings.commands:
+    global:
+      normal:
+        warrior: phone app
   colors.webpage.darkmode.enabled:
     global: false
   content.desktop_capture:

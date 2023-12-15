@@ -1,5 +1,5 @@
 bindkey -v
-
+eval "$(starship init zsh)"
 export XDG_CONFIG_HOME="$HOME/.config"
 export OPENAI_KEY="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"
 
@@ -35,6 +35,7 @@ alias docked='autorandr -l docked'
 alias docked-wacom='autorandr -l docked-wacom'
 alias confz='nvim ~/.zshrc'
 alias ac='source ./.venv/bin/activate'
+alias work='cd ~/repos/work'
 
 
 fpath=($HOME/.local/repos/zsh-completions/src $fpath)

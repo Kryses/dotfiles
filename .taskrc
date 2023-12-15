@@ -80,8 +80,8 @@ report._reviewed.sort=reviewed+,modified+
 report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
 
 ##Next
-report.next.labels=Id,Description,Active,󰖡,󰘃,󰔹,Project,,󱑈,󱫌,
-report.next.columns=id,description.count,start.age,size,priority,pts,project,tags.count,scheduled.countdown,due.countdown,urgency
+report.next.labels=Id,Description,Active,󰖡,󰘃,󰔹,Project,,󱑈,󱫌,due,
+report.next.columns=id,description.count,start.age,size,priority,pts,project,tags.count,scheduled.countdown,due.countdown,due,urgency
 
 ##sidebar
 report.side.labels=Id,(P),Description,urg

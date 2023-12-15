@@ -28,6 +28,14 @@ xfce4-power-manager &
 # Load notification service
 dunst &
 
+blueman-applet &
+nm-applet &
+pamac-tray &
+flameshot &
+kdeconnect-indicator &
+pa-applet &
+
+
 # Launch polybar
 ~/dotfiles/qtile/scripts/x11/loadbar.sh
 
