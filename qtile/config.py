@@ -10,6 +10,8 @@
 import os
 import subprocess
 import json
+import sys
+from pathlib import Path
 from libqtile import hook
 from libqtile import qtile
 from typing import List
@@ -37,12 +39,16 @@ from libqtile.backend.wayland import InputConfig
 from qtile_extras import widget as ex_widget
 from qtile_extras.widget.decorations import BorderDecoration, PowerLineDecoration
 
+qtile_path = Path.home() / ".config" / "qtile"
+sys.path.append(str(qtile_path))
+
+from conf.keyboard import keyboard_layout
+
 
 def get_autorandr_profile():
     return subprocess.check_output("autorandr --current", shell=True, text=True).strip()
 
 
-keyboard_layout = "us"
 # --------------------------------------------------------
 # Your configuration
 # --------------------------------------------------------
@@ -490,6 +496,7 @@ keys.extend(
 
 colors = os.path.expanduser("~/.cache/wal/colors.json")
 colordict = json.load(open(colors))
+
 Color0 = colordict["colors"]["color0"]
 Color1 = colordict["colors"]["color1"]
 Color2 = colordict["colors"]["color2"]
@@ -506,6 +513,8 @@ Color12 = colordict["colors"]["color12"]
 Color13 = colordict["colors"]["color13"]
 Color14 = colordict["colors"]["color14"]
 Color15 = colordict["colors"]["color15"]
+
+# --------------------------------------------------------
 
 
 def hex_to_rgba(hex):
@@ -718,7 +727,7 @@ if wm_bar == "qtile":
                 widget_list,
                 30,
                 padding=20,
-                opacity=0.7,
+                opacity=1.0,
                 border_width=[0, 0, 0, 0],
                 margin=[0, 0, 0, 0],
                 background="#000000.3",
