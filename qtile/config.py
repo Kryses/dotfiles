@@ -14,8 +14,7 @@ import sys
 from pathlib import Path
 from libqtile import hook
 from libqtile import qtile
-from typing import List
-from libqtile import bar, layout, widget
+from libqtile import bar, layout
 from libqtile.config import (
     Click,
     Drag,
@@ -24,29 +23,22 @@ from libqtile.config import (
     Match,
     Screen,
     DropDown,
-    KeyChord,
     ScratchPad,
 )
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
-from libqtile.widget import Spacer, Backlight
-from libqtile.widget.image import Image
 from libqtile.dgroups import simple_key_binder
 from pathlib import Path
 from libqtile.log_utils import logger
 from libqtile.backend.wayland import InputConfig
 
-from qtile_extras import widget as ex_widget
-from qtile_extras.widget.decorations import BorderDecoration, PowerLineDecoration
 
 qtile_path = Path.home() / ".config" / "qtile"
 sys.path.append(str(qtile_path))
 
 from conf.keyboard import keyboard_layout
-
-
-def get_autorandr_profile():
-    return subprocess.check_output("autorandr --current", shell=True, text=True).strip()
+from conf.widget_list import get_widget_list
+from conf.autorandr import get_autorandr_profile
+from conf.colors import WalColors
 
 
 # --------------------------------------------------------
@@ -58,11 +50,10 @@ def get_autorandr_profile():
 # Show wlan status bar widget (set to False if wired network)
 # show_wlan = True
 autorandr_profile = get_autorandr_profile() or "docked"
-show_wlan = True
+wal_colors = WalColors()
 
 # Show bluetooth status bar widget
 # show_bluetooth = True
-show_bluetooth = True
 
 # --------------------------------------------------------
 # General Variables
@@ -90,12 +81,6 @@ else:
 
 logger.warning("Status bar: " + wm_bar)
 
-# --------------------------------------------------------
-# Check for Desktop/Laptop
-# --------------------------------------------------------
-
-# 3 = Desktop
-platform = int(os.popen("cat /sys/class/dmi/id/chassis_type").read())
 
 # --------------------------------------------------------
 # Set default apps
@@ -336,6 +321,7 @@ elif qtile.core.name == "wayland":
         Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl -q s +20%")),
         Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl -q s 20%-")),
     ]
+logger.warning("Bindings")
 
 # --------------------------------------------------------
 # Groups
@@ -355,6 +341,7 @@ dgroups_key_binder = simple_key_binder(mod)
 # Scratchpads
 # --------------------------------------------------------
 
+logger.warning("Scratchpads")
 scratch_pad_postions = {
     "docked": {
         "chatgpt": {
@@ -393,6 +380,12 @@ scratch_pad_postions = {
             "width": 0.3,
             "height": 0.7,
         },
+        "spotify": {
+            "x": 0.69,
+            "y": 0.05,
+            "width": 0.3,
+            "height": 0.7,
+        },
     },
     "mobile": {
         "chatgpt": {
@@ -426,6 +419,12 @@ scratch_pad_postions = {
             "height": 0.6,
         },
         "slack": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.9,
+            "height": 0.6,
+        },
+        "spotify": {
             "x": 0.05,
             "y": 0.05,
             "width": 0.9,
@@ -475,6 +474,12 @@ groups.append(
                 on_focus_lost_hide=False,
                 **current_scratch_pad_postions["slack"],
             ),
+            DropDown(
+                "spotify",
+                "spotify",
+                on_focus_lost_hide=True,
+                **current_scratch_pad_postions["spotify"],
+            ),
         ],
     )
 )
@@ -487,32 +492,9 @@ keys.extend(
         Key([mod], "v", lazy.group["6"].dropdown_toggle("vit")),
         Key([mod], "a", lazy.group["6"].dropdown_toggle("scrcpy")),
         Key([mod], "s", lazy.group["6"].dropdown_toggle("slack")),
+        Key([mod, "Shift"], "s", lazy.group["6"].dropdown_toggle("spotify")),
     ]
 )
-
-# --------------------------------------------------------
-# Pywal Colors
-# --------------------------------------------------------
-
-colors = os.path.expanduser("~/.cache/wal/colors.json")
-colordict = json.load(open(colors))
-
-Color0 = colordict["colors"]["color0"]
-Color1 = colordict["colors"]["color1"]
-Color2 = colordict["colors"]["color2"]
-Color3 = colordict["colors"]["color3"]
-Color4 = colordict["colors"]["color4"]
-Color5 = colordict["colors"]["color5"]
-Color6 = colordict["colors"]["color6"]
-Color7 = colordict["colors"]["color7"]
-Color8 = colordict["colors"]["color8"]
-Color9 = colordict["colors"]["color9"]
-Color10 = colordict["colors"]["color10"]
-Color11 = colordict["colors"]["color11"]
-Color12 = colordict["colors"]["color12"]
-Color13 = colordict["colors"]["color13"]
-Color14 = colordict["colors"]["color14"]
-Color15 = colordict["colors"]["color15"]
 
 # --------------------------------------------------------
 
@@ -531,7 +513,7 @@ layout_theme = {
     "border_width": 3,
     "margin": 10,
     "border_focus": "#ffffff",
-    "border_normal": Color6,
+    "border_normal": str(wal_colors.color0),
     "single_border_width": 3,
 }
 
@@ -558,162 +540,8 @@ extension_defaults = widget_defaults.copy()
 # Decorations
 # https://qtile-extras.readthedocs.io/en/stable/manual/how_to/decorations.html
 # --------------------------------------------------------
-
-decor_left = {
-    "decorations": [
-        PowerLineDecoration(path="forward_slash", shift=5),
-        BorderDecoration(colour=Color7, border_width=[0, 0, 4, 0], padding_x=5),
-    ],
-}
-
-decor_right = {
-    "decorations": [
-        PowerLineDecoration(path="back_slash"),
-        BorderDecoration(colour=Color7, border_width=[0, 0, 4, 0], padding_x=5),
-    ],
-}
-
-# --------------------------------------------------------
-# Widgets
-# --------------------------------------------------------
-
-widget_list = [
-    ex_widget.CurrentLayoutIcon(
-        **decor_left,
-        background=Color1,
-    ),
-    widget.GroupBox(
-        **decor_left,
-        background=(0.0, 0.0, 0.0, 0.0),
-        highlight_method="block",
-        highlight=Color8 + ".5",
-        block_border=Color1,
-        highlight_color=[Color8 + ".5", Color8 + ".5"],
-        block_highlight_text_color="000000",
-        foreground="ffffff",
-        rounded=True,
-        this_current_screen_border="ffffff",
-        active="ffffff",
-    ),
-    widget.TextBox(
-        **decor_left,
-        background=Color1 + ".8",
-        text="  ",
-        foreground="ffffff.6",
-        fontsize=18,
-        mouse_callbacks={
-            "Button1": lambda: qtile.spawn(
-                "sh " + home + "/dotfiles/.settings/browser.sh"
-            )
-        },
-    ),
-    widget.TextBox(
-        **decor_left,
-        background=Color1 + ".6",
-        text="   ",
-        foreground="ffffff.6",
-        fontsize=18,
-        mouse_callbacks={
-            "Button1": lambda: qtile.spawn(
-                "sh " + home + "/dotfiles/.settings/filemanager.sh"
-            )
-        },
-    ),
-    widget.WindowName(
-        **decor_left, max_chars=50, background=Color1 + ".4", width=400, padding=10
-    ),
-    widget.Spacer(),
-    widget.Spacer(decorations=[PowerLineDecoration(path="back_slash")], length=30),
-    widget.CPU(
-        **decor_right,
-        background=Color6 + ".4",
-        padding=10,
-        format="CPU {freq_current}GHz {load_percent}%",
-    ),
-    widget.CPUGraph(
-        **decor_right,
-        background=Color6 + ".4",
-        border_color=Color3 + ".8",
-        graph_color=Color3,
-        padding=10,
-        type="box",
-    ),
-    widget.Memory(
-        **decor_right,
-        background=Color6 + ".6",
-        padding=10,
-        measure_mem="G",
-        format="{MemUsed:.0f}{mm}/{MemTotal:.0f}{mm}({MemPercent}%)",
-    ),
-    widget.MemoryGraph(
-        **decor_right,
-        background=Color6 + ".6",
-        border_color=Color6 + ".6",
-        graph_color=Color5,
-        padding=10,
-        type="box",
-    ),
-    widget.Volume(
-        **decor_right,
-        background=Color6 + ".8",
-        padding=10,
-        fmt="Vol: {}",
-    ),
-    widget.DF(
-        **decor_right,
-        padding=10,
-        background=Color6 + ".8",
-        visible_on_warn=False,
-        format="{p} {uf}{m} ({r:.0f}%)",
-    ),
-    widget.Clock(
-        **decor_right,
-        background=Color6,
-        padding=10,
-        format="%Y-%m-%d / %I:%M %p",
-    ),
-    ex_widget.UPowerWidget(
-        background=Color6,
-        battery_height=15,
-        battery_name="BAT1",
-        battery_width=40,
-        border_charge_colour=Color6,
-        border_colour=Color6,
-        border_critical_colour=Color6,
-        fill_charge="#348502.9",
-        fill_critical="#cc0000.9",
-        fill_low="#F1D70B.9",
-        fill_normal=Color6,
-        font="sans",
-        fontsize=None,
-        foreground="ffffff",
-        margin=5,
-        mouse_callbacks={},
-        percentage_critical=0.1,
-        percentage_low=0.2,
-        spacing=10,
-        text_charging="({percentage:.0f}%) {ttf} until fully charged",
-        text_discharging="({percentage:.0f}%) {tte} until empty",
-        text_displaytime=5,
-    ),
-    widget.TextBox(
-        **decor_right,
-        background=Color6,
-        padding=5,
-        text=" ",
-        fontsize=20,
-        mouse_callbacks={
-            "Button1": lambda: qtile.spawn(
-                home + "/dotfiles/qtile/scripts/powermenu.sh"
-            )
-        },
-    ),
-    ex_widget.Systray(background=Color6, padding=0),
-    widget.TextBox(
-        background=Color6,
-        padding=2,
-    ),
-]
+widget_list = get_widget_list()
+logger.warning(widget_list)
 
 # --------------------------------------------------------
 # Screens
@@ -727,10 +555,10 @@ if wm_bar == "qtile":
                 widget_list,
                 30,
                 padding=20,
-                opacity=1.0,
+                opacity=0.95,
                 border_width=[0, 0, 0, 0],
                 margin=[0, 0, 0, 0],
-                background="#000000.3",
+                background=(wal_colors.color1 + (1.0, 1.0, 1.0, 1.0)).hex,
             ),
         ),
     ]
@@ -765,7 +593,7 @@ mouse = [
 floating_layout = layout.Floating(
     border_width=3,
     border_focus="FFFFFF",
-    border_normal=Color2,
+    border_normal=str(wal_colors.color0),
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,

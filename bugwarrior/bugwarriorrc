@@ -50,7 +50,7 @@ legacy_matching = False
 # pre_import script has a non-zero exit code, the `bugwarrior-pull` command will
 # exit early.
 [hooks]
-pre_import = /home/kryses/scripts/task-backup.sh
+pre_import = /home/kryses/scripts/productivity/task-backup.sh
 
 
 # This section is for configuring notifications when bugwarrior-pull runs,

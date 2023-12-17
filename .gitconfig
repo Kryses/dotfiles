@@ -5,3 +5,5 @@
 	helper = store --file ~/.password-store/git-credentials.pass
 [core]
 	excludesFile = /home/kryses/.gitignore_global
+[init]
+	defaultBranch = main

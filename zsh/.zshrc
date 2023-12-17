@@ -7,7 +7,20 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+script_folders=(
+  "development"
+  "system"
+  "misc"
+  "productivity"
+  "system"
+  "utility"
+  )
+
 export PATH="$HOME/.local/bin:/snap/bin:$HOME/.dotfiles/bin:$HOME/scripts:$PATH"
+for folder in "${script_folders[@]}"; do
+  export PATH="$HOME/scripts/$folder:$PATH"
+done
+
 export EDITOR="nvim"
 source ~/.local/repos/powerlevel10k/powerlevel10k.zsh-theme
 source ~/.nvm/nvm.sh
