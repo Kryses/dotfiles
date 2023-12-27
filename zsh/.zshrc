@@ -47,8 +47,10 @@ alias mobile='autorandr -l mobile'
 alias docked='autorandr -l docked'
 alias docked-wacom='autorandr -l docked-wacom'
 alias confz='nvim ~/.zshrc'
+alias conft='nvim ~/.tmux.conf'
 alias ac='source ./.venv/bin/activate'
 alias work='cd ~/repos/work'
+alias tmux='tmux -2'
 
 
 fpath=($HOME/.local/repos/zsh-completions/src $fpath)
