@@ -1,0 +1,33 @@
+@document.meta
+title: {TODAY}
+description:
+authors: {AUTHOR}
+categories:
+created: {TODAY}
+updated: {TODAY}
+version: 1.0.0
+energy:
+feeling:
+mood:
+@end
+
+@code
+@end
+
+___
+
+* {TODAY}
+  Weather: {WEATHER}
+  {{:{YESTERDAY}:}}[Yesterday] - {{:{TOMORROW}:}}[Tomorrow]
+
+@code
+
+ _____        _           
+|_   _|__  __| |__ _ _  _ 
+  | |/ _ \/ _` / _` | || |
+  |_|\___/\__,_\__,_|\_, |
+                     |__/ 
+  @end
+
+* Daily Review
+   > {CURSOR}

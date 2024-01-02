@@ -9,7 +9,6 @@
 
 import os
 import subprocess
-import json
 import sys
 from pathlib import Path
 from libqtile import hook
@@ -29,7 +28,7 @@ from libqtile.lazy import lazy
 from libqtile.dgroups import simple_key_binder
 from pathlib import Path
 from libqtile.log_utils import logger
-from libqtile.backend.wayland import InputConfig
+from kryslib.colors.wal_colors import WalColors
 
 
 qtile_path = Path.home() / ".config" / "qtile"
@@ -38,8 +37,6 @@ sys.path.append(str(qtile_path))
 from conf.keyboard import keyboard_layout
 from conf.widget_list import get_widget_list
 from conf.autorandr import get_autorandr_profile
-from conf.colors import WalColors
-
 
 # --------------------------------------------------------
 # Your configuration
@@ -50,10 +47,8 @@ from conf.colors import WalColors
 # Show wlan status bar widget (set to False if wired network)
 # show_wlan = True
 autorandr_profile = get_autorandr_profile() or "docked"
-wal_colors = WalColors()
+wal_colors = WalColors(walcolor_json=Path.home() / ".cache/wal/colors.json")
 
-# Show bluetooth status bar widget
-# show_bluetooth = True
 
 # --------------------------------------------------------
 # General Variables
@@ -69,15 +64,10 @@ logger.warning("Using config.py with " + core_name)
 # --------------------------------------------------------
 # Define Status Bar
 # --------------------------------------------------------
-if core_name == "x11":
-    try:
-        wm_bar = Path(home + "/.cache/.qtile_bar_x11.sh").read_text().replace("\n", "")
-    except Exception:
-        wm_bar = "qtile"
-elif qtile.core.name == "wayland":
+try:
+    wm_bar = Path(home + "/.cache/.qtile_bar_x11.sh").read_text().replace("\n", "")
+except Exception:
     wm_bar = "qtile"
-else:
-    raise ValueError(f"{qtile.core.name} is invalid.")
 
 logger.warning("Status bar: " + wm_bar)
 
@@ -95,232 +85,110 @@ terminal = "alacritty"
 mod = "mod4"  # SUPER KEY
 alt_mod = "mod1"  # Alt Key
 
-if core_name == "x11":
-    logger.warning("Using keys with x11")
-    keys = [
-        # Focus
-        Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-        Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-        Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-        Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-        # Monitors
-        Key([mod], "period", lazy.next_screen(), desc="Move focus to next monitor"),
-        Key([mod], "comma", lazy.prev_screen(), desc="Move focus to prev monitor"),
-        Key(
-            [mod],
-            "space",
-            lazy.layout.next(),
-            desc="Move window focus to other window around",
-        ),
-        # Move
-        Key(
-            [mod, "shift"],
-            "Left",
-            lazy.layout.shuffle_left(),
-            desc="Move window to the left",
-        ),
-        Key(
-            [mod, "shift"],
-            "Right",
-            lazy.layout.shuffle_right(),
-            desc="Move window to the right",
-        ),
-        Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-        Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-        # Swap
-        Key([mod, "shift"], "h", lazy.layout.swap_left()),
-        Key([mod, "shift"], "l", lazy.layout.swap_right()),
-        Key(
-            [mod],
-            "Print",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/x11/screenshot.sh"),
-        ),
-        # Size
-        Key(
-            [mod, "control"],
-            "Down",
-            lazy.layout.shrink(),
-            desc="Grow window to the left",
-        ),
-        Key(
-            [mod, "control"], "Up", lazy.layout.grow(), desc="Grow window to the right"
-        ),
-        # Floating
-        Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
-        # Split
-        Key(
-            [mod, "shift"],
-            "Return",
-            lazy.layout.toggle_split(),
-            desc="Toggle between split and unsplit sides of stack",
-        ),
-        # Toggle Layouts
-        Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-        # Fullscreen
-        Key([mod], "f", lazy.window.toggle_fullscreen()),
-        # System
-        Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-        Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
-        Key(
-            [mod, "control"],
-            "q",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/powermenu.sh"),
-            desc="Open Powermenu",
-        ),
-        Key(
-            [mod, "shift"],
-            "s",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/x11/barswitcher.sh"),
-            desc="Switch Status Bar",
-        ),
-        # Apps
-        Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-        Key(
-            [alt_mod],
-            "space",
-            lazy.spawn("rofi -show drun"),
-            desc="Launch Rofi",
-        ),
-        Key(
-            [mod],
-            "b",
-            lazy.spawn("sh " + home + "/dotfiles/.settings/browser.sh"),
-            desc="Launch Browser",
-        ),
-        Key(
-            [mod, "shift"],
-            "w",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/x11/wallpaper.sh"),
-            desc="Update Theme and Wallpaper",
-        ),
-        Key(
-            [mod, "control"],
-            "w",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/x11/wallpaper.sh select"),
-            desc="Select Theme and Wallpaper",
-        ),
-        Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl -q s +20%")),
-        Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl -q s 20%-")),
-    ]
-elif qtile.core.name == "wayland":
-    logger.warning("Using keys with wayland")
-
-    keys = [
-        # Focus
-        Key([mod], "Left", lazy.layout.left(), desc="Move focus to left"),
-        Key([mod], "Right", lazy.layout.right(), desc="Move focus to right"),
-        Key([mod], "Down", lazy.layout.down(), desc="Move focus down"),
-        Key([mod], "Up", lazy.layout.up(), desc="Move focus up"),
-        Key(
-            [mod],
-            "space",
-            lazy.layout.next(),
-            desc="Move window focus to other window around",
-        ),
-        # Move
-        Key(
-            [mod, "shift"],
-            "Left",
-            lazy.layout.shuffle_left(),
-            desc="Move window to the left",
-        ),
-        Key(
-            [mod, "shift"],
-            "Right",
-            lazy.layout.shuffle_right(),
-            desc="Move window to the right",
-        ),
-        Key(
-            [mod, "shift"], "Down", lazy.layout.shuffle_down(), desc="Move window down"
-        ),
-        Key([mod, "shift"], "Up", lazy.layout.shuffle_up(), desc="Move window up"),
-        # Swap
-        Key([mod, "shift"], "h", lazy.layout.swap_left()),
-        Key([mod, "shift"], "l", lazy.layout.swap_right()),
-        Key(
-            [mod],
-            "Print",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/wayland/screenshot.sh"),
-        ),
-        # Size
-        Key(
-            [mod, "control"],
-            "Down",
-            lazy.layout.shrink(),
-            desc="Grow window to the left",
-        ),
-        Key(
-            [mod, "control"], "Up", lazy.layout.grow(), desc="Grow window to the right"
-        ),
-        Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-        Key(
-            [mod], "m", lazy.layout.maximize(), desc="Toggle between min and max sizes"
-        ),
-        Key(
-            [mod],
-            "equal",
-            lazy.layout.grow_left().when(layout=["bsp", "columns"]),
-            lazy.layout.grow().when(layout=["monadtall", "monadwide"]),
-            desc="Grow window to the left",
-        ),
-        Key(
-            [mod],
-            "minus",
-            lazy.layout.grow_right().when(layout=["bsp", "columns"]),
-            lazy.layout.shrink().when(layout=["monadtall", "monadwide"]),
-            desc="Grow window to the left",
-        ),
-        # Floating
-        Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
-        # Split
-        Key(
-            [mod, "shift"],
-            "Return",
-            lazy.layout.toggle_split(),
-            desc="Toggle between split and unsplit sides of stack",
-        ),
-        # Toggle Layouts
-        Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-        # Fullscreen
-        Key([mod], "f", lazy.window.toggle_fullscreen()),
-        # System
-        Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
-        Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
-        Key(
-            [mod, "control"],
-            "q",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/powermenu.sh"),
-            desc="Open Powermenu",
-        ),
-        # Apps
-        Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-        Key(
-            [mod, "control"],
-            "Return",
-            lazy.spawn("rofi -show drun"),
-            desc="Launch Rofi",
-        ),
-        Key(
-            [mod],
-            "b",
-            lazy.spawn("sh " + home + "/dotfiles/.settings/browser.sh"),
-            desc="Launch Browser",
-        ),
-        Key(
-            [mod, "shift"],
-            "w",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/wayland/wallpaper.sh"),
-            desc="Update Theme and Wallpaper",
-        ),
-        Key(
-            [mod, "control"],
-            "w",
-            lazy.spawn(home + "/dotfiles/qtile/scripts/wayland/wallpaper.sh select"),
-            desc="Select Theme and Wallpaper",
-        ),
-        Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl -q s +20%")),
-        Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl -q s 20%-")),
-    ]
+logger.warning("Using keys with x11")
+keys = [
+    # Focus
+    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    # Monitors
+    Key([mod], "period", lazy.next_screen(), desc="Move focus to next monitor"),
+    Key([mod], "comma", lazy.prev_screen(), desc="Move focus to prev monitor"),
+    Key(
+        [mod],
+        "space",
+        lazy.layout.next(),
+        desc="Move window focus to other window around",
+    ),
+    # Move
+    Key(
+        [mod, "shift"],
+        "Left",
+        lazy.layout.shuffle_left(),
+        desc="Move window to the left",
+    ),
+    Key(
+        [mod, "shift"],
+        "Right",
+        lazy.layout.shuffle_right(),
+        desc="Move window to the right",
+    ),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    # Swap
+    Key([mod, "shift"], "h", lazy.layout.swap_left()),
+    Key([mod, "shift"], "l", lazy.layout.swap_right()),
+    Key(
+        [mod],
+        "Print",
+        lazy.spawn(home + "/dotfiles/qtile/scripts/x11/screenshot.sh"),
+    ),
+    # Size
+    Key(
+        [mod, "control"],
+        "Down",
+        lazy.layout.shrink(),
+        desc="Grow window to the left",
+    ),
+    Key([mod, "control"], "Up", lazy.layout.grow(), desc="Grow window to the right"),
+    # Floating
+    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
+    # Split
+    Key(
+        [mod, "shift"],
+        "Return",
+        lazy.layout.toggle_split(),
+        desc="Toggle between split and unsplit sides of stack",
+    ),
+    # Toggle Layouts
+    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    # Fullscreen
+    Key([mod], "f", lazy.window.toggle_fullscreen()),
+    # System
+    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
+    Key(
+        [mod, "control"],
+        "q",
+        lazy.spawn(home + "/dotfiles/qtile/scripts/powermenu.sh"),
+        desc="Open Powermenu",
+    ),
+    Key(
+        [mod, "shift"],
+        "s",
+        lazy.spawn(home + "/dotfiles/qtile/scripts/x11/barswitcher.sh"),
+        desc="Switch Status Bar",
+    ),
+    # Apps
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key(
+        [alt_mod],
+        "space",
+        lazy.spawn("rofi -show drun"),
+        desc="Launch Rofi",
+    ),
+    Key(
+        [mod],
+        "b",
+        lazy.spawn("sh " + home + "/dotfiles/.settings/browser.sh"),
+        desc="Launch Browser",
+    ),
+    Key(
+        [mod, "shift"],
+        "w",
+        lazy.spawn(home + "/dotfiles/qtile/scripts/x11/wallpaper.sh"),
+        desc="Update Theme and Wallpaper",
+    ),
+    Key(
+        [mod, "control"],
+        "w",
+        lazy.spawn(home + "/dotfiles/qtile/scripts/x11/wallpaper.sh select"),
+        desc="Select Theme and Wallpaper",
+    ),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl -q s +20%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl -q s 20%-")),
+]
 logger.warning("Bindings")
 
 # --------------------------------------------------------
@@ -553,12 +421,11 @@ if wm_bar == "qtile":
         Screen(
             top=bar.Bar(
                 widget_list,
-                30,
-                padding=20,
+                40,
                 opacity=0.95,
                 border_width=[0, 0, 0, 0],
                 margin=[0, 0, 0, 0],
-                background=(wal_colors.color1 + (1.0, 1.0, 1.0, 1.0)).hex,
+                background=str(wal_colors.color0),
             ),
         ),
     ]
@@ -592,7 +459,7 @@ mouse = [
 
 floating_layout = layout.Floating(
     border_width=3,
-    border_focus="FFFFFF",
+    border_focus=str(wal_colors.color7),
     border_normal=str(wal_colors.color0),
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -645,9 +512,6 @@ wmname = "QTILE"
 # --------------------------------------------------------
 
 # Keyboard layout
-wl_input_rules = {
-    "type:keyboard": InputConfig(kb_layout=keyboard_layout),
-}
 
 # --------------------------------------------------------
 # Hooks
@@ -657,13 +521,8 @@ wl_input_rules = {
 # HOOK startup
 @hook.subscribe.startup_once
 def autostart():
-    if qtile.core.name == "x11":
-        autostartscript = "~/.config/qtile/autostart_x11.sh"
-        subprocess.Popen(["setxkbmap", keyboard_layout])
-    elif qtile.core.name == "wayland":
-        autostartscript = "~/.config/qtile/autostart_wayland.sh"
-    else:
-        raise ValueError(f"{qtile.core.name} is invalid")
+    autostartscript = "~/.config/qtile/autostart_x11.sh"
+    subprocess.Popen(["setxkbmap", keyboard_layout])
 
     home = os.path.expanduser(autostartscript)
     subprocess.Popen([home])

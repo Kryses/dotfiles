@@ -125,3 +125,4 @@ else
         echo "Start Hyprland with command Hyprland"
     fi
 fi
+eval "$(zellij setup --generate-auto-start bash)"

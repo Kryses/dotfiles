@@ -70,6 +70,7 @@ alias vmstop='virsh --connect qemu:///system destroy win11'
 alias confq='nvim ~/dotfiles/qtile/config.py'
 alias confp='nvim ~/dotfiles/picom/picom.conf'
 alias confb='nvim ~/dotfiles/.bashrc'
-alias confz='nvim ~/.zshrc'
+alias confz='nvim ~/dotfiles/zsh-custom'
 alias conft='nvim ~/dotfiles/.tmux.conf'
+alias confn='nvim ~/.config/nvim/lua/user'
 

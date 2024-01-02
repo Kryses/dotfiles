@@ -1,0 +1,9 @@
+@document.meta 
+title: Weekly Report - {TODAY}
+description:
+authors: {AUTHOR}
+categories:
+created: {TODAY}
+updated: {TODAY}
+version: 1.0.0
+@end
