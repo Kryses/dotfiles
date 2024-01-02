@@ -71,11 +71,10 @@ pre_import = /home/kryses/scripts/productivity/task-backup.sh
 # only_on_new_tasks = True
 
 [jira_halon]
-#key
 service = jira
 jira.base_uri = https://halon.atlassian.net
 jira.username = cprovencher@halon.com
-jira.password = key
+jira.password = @oracle:eval:pass work/hl/jira-api
 jira.query = assignee = "Chad Provencher" and status != closed and status != resolved and status != done
 # Set this to your jira major version. We currently support only jira version
 # 4 and 5(the default). You can find your particular version in the footer at
