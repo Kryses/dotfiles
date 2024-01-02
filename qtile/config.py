@@ -114,6 +114,8 @@ keys = [
         lazy.layout.shuffle_right(),
         desc="Move window to the right",
     ),
+    Key([mod], "m", lazy.layout.maximize(), desc="maximize"),
+    Key([mod], "n", lazy.layout.normalize(), desc="maximize"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Swap
