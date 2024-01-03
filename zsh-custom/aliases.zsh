@@ -21,6 +21,7 @@ alias conft='nvim ~/.tmux.conf'
 alias ac='source ./.venv/bin/activate'
 alias work='cd ~/repos/work'
 alias tmux='tmux -2'
+alias main='~/scripts/development/open-main.sh'
 
 #------------------------------------------------------------
 # Aliases from qtile tutorial
