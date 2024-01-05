@@ -310,12 +310,6 @@ groups.append(
         "6",
         [
             DropDown(
-                "chatgpt",
-                "qutebrowser --target window -R https://chat.openai.com",
-                on_focus_lost_hide=False,
-                **current_scratch_pad_postions["chatgpt"],
-            ),
-            DropDown(
                 "notes",
                 f"alacritty -e nvim '{home}/notes/kryses/index.norg'",
                 on_focus_lost_hide=False,
@@ -357,7 +351,6 @@ groups.append(
 
 keys.extend(
     [
-        Key([mod], "c", lazy.group["6"].dropdown_toggle("chatgpt")),
         Key([mod], "x", lazy.group["6"].dropdown_toggle("notes")),
         Key([mod], "z", lazy.group["6"].dropdown_toggle("terminal")),
         Key([mod], "v", lazy.group["6"].dropdown_toggle("vit")),

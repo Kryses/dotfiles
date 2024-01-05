@@ -48,18 +48,24 @@ layout {
     pane_template name="nnn-sidebar" {
         pane size="15%" split_direction="vertical" command="nnn"
     }
-    tab name="Home" focus=true {
-        pane split_direction="vertical" {
-            pane command="vit"
-            pane command="task" {
-                args "burndown.daily"
-            }
-        }
-    }
-    tab name="Shell" {
+    tab name="Shell" focus=true {
         pane split_direction="vertical" {
             nnn-sidebar size="15%"
             pane focus=true
+        }
+    }
+    tab name="Home" {
+        pane split_direction="vertical" {
+            pane command="vit" size="25%" focus=true
+            pane {
+                pane size=10 split_direction="vertical" {
+                    pane command="peaclock" 
+                    pane size=25 command="cal" 
+                }
+                pane command="nvim" {
+                    args "/home/kryses/notes/kryses/index.norg"
+                }
+            }
         }
     }
     tab name="Dev" {
@@ -73,8 +79,7 @@ layout {
                 }
             }
             pane size="20%" {
-                command "ollama"
-                args "run" "asistant"
+                command "chat-dev"
             }
         }
     }

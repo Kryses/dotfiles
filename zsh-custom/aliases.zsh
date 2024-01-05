@@ -22,6 +22,7 @@ alias ac='source ./.venv/bin/activate'
 alias work='cd ~/repos/work'
 alias tmux='tmux -2'
 alias main='~/scripts/development/open-main.sh'
+alias kz='zellij kill-all-sessions'
 
 #------------------------------------------------------------
 # Aliases from qtile tutorial
