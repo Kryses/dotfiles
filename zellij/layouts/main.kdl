@@ -79,7 +79,7 @@ layout {
                 }
             }
             pane size="20%" {
-                command "chat-dev"
+                command "chatgpt" 
             }
         }
     }
