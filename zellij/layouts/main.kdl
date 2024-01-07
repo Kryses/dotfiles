@@ -45,32 +45,25 @@ layout {
         }
 
     }
-    pane_template name="nnn-sidebar" {
-        pane size="15%" split_direction="vertical" command="nnn"
-    }
     tab name="Shell" focus=true {
         pane split_direction="vertical" {
-            nnn-sidebar size="15%"
-            pane focus=true
+            pane 
         }
     }
     tab name="Home" {
-        pane split_direction="vertical" {
-            pane command="vit" size="25%" focus=true
-            pane {
-                pane size=10 split_direction="vertical" {
-                    pane command="peaclock" 
-                    pane size=25 command="cal" 
-                }
-                pane command="nvim" {
-                    args "/home/kryses/notes/kryses/index.norg"
-                }
+        pane {
+            pane size=10 split_direction="vertical" {
+                pane command="peaclock" 
+                pane size=25 command="cal" 
+            }
+            pane command="nvim" {
+                args "/home/kryses/notes/kryses/index.norg"
             }
         }
+        pane command="vit" size="25%" focus=true
     }
     tab name="Dev" {
         pane split_direction="vertical" {
-            nnn-sidebar size="15%"
             pane {
                 pane command="nvim" focus=true
                 pane size="20%" split_direction="vertical" {
@@ -78,17 +71,10 @@ layout {
                     pane
                 }
             }
-            pane size="20%" {
-                command "chatgpt" 
-            }
         }
     }
     tab name="Config" {
         pane split_direction="vertical" {
-            pane size="15%" command="nnn" {
-                args "/home/kryses/dotfiles"
-                cwd "/home/kryses/dotfiles"
-            }
             pane focus=true command="nvim" {
                 cwd "/home/kryses/dotfiles"
             }
