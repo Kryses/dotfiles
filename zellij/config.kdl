@@ -73,7 +73,7 @@ keybinds clear-defaults=true {
     }
     scroll {
         unbind "Ctrl s"
-        bind "Ctrl r" { SwitchToMode "Normal"; }
+        bind "Ctrl y" { SwitchToMode "Normal"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
@@ -87,7 +87,7 @@ keybinds clear-defaults=true {
         // bind "Alt c" { Copy; }
     }
     search {
-        unbind "Ctrl s"
+        unbind "Ctrl u"
         bind "Ctrl f" { SwitchToMode "Normal"; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
         bind "j" "Down" { ScrollDown; }
@@ -175,7 +175,7 @@ keybinds clear-defaults=true {
     }
     shared_except "scroll" "locked" {
         unbind "Ctrl s"
-        bind "Ctrl r" { SwitchToMode "Scroll"; }
+        bind "Ctrl y" { SwitchToMode "Scroll"; }
     }
     shared_except "session" "locked" {
         unbind "Ctrl o"
@@ -198,7 +198,7 @@ plugins {
     status-bar { path "status-bar"; }
     zjstatus { path "~/.local/zellij/plugins/zjstatus.wasm"; }
     strider { path "strider"; }
-    compact-bar { path "compact-bar"; }
+    //compact-bar { path "compact-bar"; }
     session-manager { path "session-manager"; }
 }
 
@@ -245,7 +245,7 @@ default_shell "zsh"
 //   - true (default)
 //   - false
 //
-session_serialization false
+session_serialization true
 
 // Whether pane viewports are serialized along with the session, default is false
 // Options:
@@ -287,7 +287,7 @@ serialize_pane_viewport true
 // The name of the default layout to load on startup
 // Default: "default"
 //
-default_layout "main"
+// default_layout "main"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal

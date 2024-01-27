@@ -45,9 +45,20 @@ layout {
         }
 
     }
-    tab name="Shell" focus=true {
-        pane split_direction="vertical" {
-            pane 
+    tab name="Dev" {
+        floating_panes {
+            pane command="chatgpt"
         }
-    }
+        pane split_direction="vertical" {
+            pane command="nnn" size=20
+            pane {
+                pane focus=true cwd="/home/kryses/repos/work"
+                pane split_direction="vertical" size=25 {
+                    pane cwd="/home/kryses/repos/work"
+                    pane cwd="/home/kryses/repos/work"
+                }
+            }
+
+        }
+    } 
 }

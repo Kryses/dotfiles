@@ -10,7 +10,6 @@
 # ----------------------------------------------------- 
 
 # My screen resolution
-autorandr --change
 #xrandr --rate 120
 
 # For Virtual Machine 

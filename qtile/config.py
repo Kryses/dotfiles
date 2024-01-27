@@ -36,7 +36,6 @@ sys.path.append(str(qtile_path))
 
 from conf.keyboard import keyboard_layout
 from conf.widget_list import get_widget_list
-from conf.autorandr import get_autorandr_profile
 
 # --------------------------------------------------------
 # Your configuration
@@ -46,7 +45,6 @@ from conf.autorandr import get_autorandr_profile
 
 # Show wlan status bar widget (set to False if wired network)
 # show_wlan = True
-autorandr_profile = get_autorandr_profile() or "docked"
 wal_colors = WalColors(walcolor_json=Path.home() / ".cache/wal/colors.json")
 
 
@@ -166,7 +164,7 @@ keys = [
     # Apps
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key(
-        [alt_mod],
+        [mod, "shift"],
         "space",
         lazy.spawn("rofi -show drun"),
         desc="Launch Rofi",
@@ -304,7 +302,7 @@ scratch_pad_postions = {
     },
 }
 
-current_scratch_pad_postions = scratch_pad_postions[autorandr_profile]
+current_scratch_pad_postions = scratch_pad_postions["docked"]
 groups.append(
     ScratchPad(
         "6",
@@ -389,6 +387,7 @@ layouts = [
     layout.Max(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.MonadWide(**layout_theme),
+    layout.MonadThreeCol(**layout_theme),
     layout.RatioTile(**layout_theme),
     layout.Floating(),
 ]

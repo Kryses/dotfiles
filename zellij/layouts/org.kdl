@@ -45,9 +45,19 @@ layout {
         }
 
     }
-    tab name="Shell" focus=true {
-        pane split_direction="vertical" {
-            pane 
+    tab name="Home" {
+        pane {
+            pane size=10 split_direction="vertical" {
+                pane command="peaclock" 
+                pane size=25 command="cal" 
+            }
+            pane command="nvim" {
+                args "/home/kryses/notes/kryses/index.norg"
+            }
+        }
+        pane command="vit" size="25%" focus=true
+        floating_panes {
+            pane command="chatgpt" 
         }
     }
 }

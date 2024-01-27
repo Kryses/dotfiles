@@ -45,9 +45,4 @@ layout {
         }
 
     }
-    tab name="Shell" focus=true {
-        pane split_direction="vertical" {
-            pane 
-        }
-    }
 }

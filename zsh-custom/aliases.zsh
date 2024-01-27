@@ -23,6 +23,9 @@ alias work='cd ~/repos/work'
 alias tmux='tmux -2'
 alias main='~/scripts/development/open-main.sh'
 alias kz='zellij kill-all-sessions'
+alias halon-up='nmcli connection up Halon'
+alias halon-down='nmcli connection down Halon'
+alias halon-rdp='rdesktop -d halonlan -u cprovencher -p Halon1234 -g 1920x1080 10.205.42.100'
 
 #------------------------------------------------------------
 # Aliases from qtile tutorial
@@ -75,4 +78,18 @@ alias confb='nvim ~/dotfiles/.bashrc'
 alias confz='nvim ~/dotfiles/zsh-custom'
 alias conft='nvim ~/dotfiles/.tmux.conf'
 alias confn='nvim ~/.config/nvim/lua/user'
+
+# -----------------------------------------------------
+# ZELLIJ
+# -----------------------------------------------------
+
+alias zmain='zellij a main'
+alias zdev='zellij a dev'
+alias zwork='zellij a work'
+alias zorg='zellij a org'
+alias zsystem='zellij a system'
+
+znew() {
+    zellij -l $1
+}
 

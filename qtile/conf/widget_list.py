@@ -2,7 +2,6 @@ from libqtile import widget
 from qtile_extras import widget as ex_widget
 from qtile_extras.widget.decorations import PowerLineDecoration, BorderDecoration
 from qtile_extras.widget import modify
-from conf.autorandr import get_autorandr_profile
 from kryslib.colors.wal_colors import WalColors
 from kryslib.colors.color import Color
 from pathlib import Path
@@ -40,7 +39,7 @@ BACKGROUND = wal_colors.color5
 
 
 def get_widget_list():
-    profile = get_autorandr_profile()
+    profile = "docked"
     widget_list = []
     widget_list.append(
         ex_widget.CurrentLayoutIcon(

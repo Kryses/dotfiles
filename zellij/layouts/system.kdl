@@ -45,7 +45,12 @@ layout {
         }
 
     }
-    tab name="Shell" focus=true {
+    tab name="System" focus=true {
+        pane split_direction="vertical" {
+            pane command="htop"
+        }
+    }
+    tab name="Shell" {
         pane split_direction="vertical" {
             pane 
         }
