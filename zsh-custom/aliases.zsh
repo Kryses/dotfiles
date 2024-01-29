@@ -88,8 +88,13 @@ alias zdev='zellij a dev'
 alias zwork='zellij a work'
 alias zorg='zellij a org'
 alias zsystem='zellij a system'
+alias zdot='zellij a dot'
 
 znew() {
     zellij -l $1
 }
 
+cwork() {
+    ssh cprovencher@10.205.42.100
+}
+alias workm='sshfs cprovencher@10.205.42.100:E:/develoment ~/repos/work'
