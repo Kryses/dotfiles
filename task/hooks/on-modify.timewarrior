@@ -29,6 +29,10 @@
 import json
 import subprocess
 import sys
+import logging
+import shlex
+
+logging.basicConfig(filename="/tmp/timewarrior.log", level=logging.DEBUG)
 
 # Hook should extract all the following for use as Timewarrior tags:
 #   UUID
@@ -36,7 +40,7 @@ import sys
 #   Tags
 #   Description
 #   UDAs
-print("here")
+
 try:
     input_stream = sys.stdin.buffer
 except AttributeError:
@@ -76,8 +80,23 @@ def main(old, new):
 
     if start_or_stop:
         tags = extract_tags_from(new)
+        logging.debug("Tags: {}".format(tags))
+        tags = [x for x in tags if "jira_" not in x]
 
-        subprocess.call(["timew", start_or_stop] + tags + [":yes"])
+        parsed_tags = []
+        for tag in tags:
+            if "(bw)" in tag:
+                parsed_tags.append(tag.replace("(bw)", ""))
+            else:
+                parsed_tags.append(tag)
+
+        logging.debug("Tags: {}".format(parsed_tags))
+        logging.debug(
+            "Command: {}".format(
+                shlex.join(["timew", start_or_stop] + parsed_tags + [":yes"])
+            )
+        )
+        subprocess.call(["timew", start_or_stop] + parsed_tags + [":yes"])
 
     # Modifications to task other than start/stop
     elif "start" in new and "start" in old:

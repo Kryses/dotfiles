@@ -50,10 +50,9 @@ layout {
             pane command="chatgpt"
         }
         pane split_direction="vertical" {
-            pane command="nnn" cwd="/home/kryses/dotfiles" size=20
             pane {
                 pane focus=true cwd="/home/kryses/dotfiles" command="nvim"
-                pane split_direction="vertical" size=25 {
+                pane split_direction="vertical" size="25%" {
                     pane cwd="/home/kryses/dotfiles"
                     pane cwd="/home/kryses/dotfiles"
                 }

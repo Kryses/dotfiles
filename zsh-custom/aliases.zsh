@@ -95,6 +95,9 @@ znew() {
 }
 
 cwork() {
-    ssh cprovencher@10.205.42.100
+    ssh $(pass work/hl/hal-ssh-ip)
 }
-alias workm='sshfs cprovencher@10.205.42.100:E:/develoment ~/repos/work'
+alias workm='sshfs $(pass work/hl/hal-ssh-ip):E:/develoment ~/repos/work'
+prime-run() {
+    __NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia $@
+}

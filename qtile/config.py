@@ -197,8 +197,8 @@ logger.warning("Bindings")
 # --------------------------------------------------------
 
 groups = [
-    Group("1", layout="monadtall"),
-    Group("2", layout="monadtall"),
+    Group("1", layout="monadthreecol"),
+    Group("2", layout="ratiotile"),
     Group("3", layout="monadtall"),
     Group("4", layout="monadtall"),
     Group("5", layout="monadtall"),
@@ -255,6 +255,12 @@ scratch_pad_postions = {
             "width": 0.3,
             "height": 0.7,
         },
+        "email": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.20,
+            "height": 0.6,
+        },
     },
     "mobile": {
         "chatgpt": {
@@ -299,6 +305,12 @@ scratch_pad_postions = {
             "width": 0.9,
             "height": 0.6,
         },
+        "email": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.20,
+            "height": 0.6,
+        },
     },
 }
 
@@ -308,10 +320,22 @@ groups.append(
         "6",
         [
             DropDown(
-                "notes",
-                f"alacritty -e nvim '{home}/notes/kryses/index.norg'",
+                "obsidian",
+                "obsidian",
                 on_focus_lost_hide=False,
                 **current_scratch_pad_postions["notes"],
+            ),
+            DropDown(
+                "calendar",
+                "vivaldi --app=https://outlook.office.com/calendar/view/day",
+                on_focus_lost_hide=False,
+                **current_scratch_pad_postions["notes"],
+            ),
+            DropDown(
+                "email",
+                "vivaldi --app=https://outlook.office.com/mail/",
+                on_focus_lost_hide=False,
+                **current_scratch_pad_postions["email"],
             ),
             DropDown(
                 "terminal",
@@ -355,6 +379,8 @@ keys.extend(
         Key([mod], "a", lazy.group["6"].dropdown_toggle("scrcpy")),
         Key([mod], "s", lazy.group["6"].dropdown_toggle("slack")),
         Key([mod, "Shift"], "s", lazy.group["6"].dropdown_toggle("spotify")),
+        Key([mod, "Shift"], "c", lazy.group["6"].dropdown_toggle("calendar")),
+        Key([mod, "Shift"], "e", lazy.group["6"].dropdown_toggle("email")),
     ]
 )
 
@@ -384,11 +410,11 @@ layout_theme = {
 # --------------------------------------------------------
 
 layouts = [
-    layout.Max(**layout_theme),
-    layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
     layout.MonadThreeCol(**layout_theme),
+    layout.MonadTall(**layout_theme),
     layout.RatioTile(**layout_theme),
+    layout.Stack(**layout_theme),
+    layout.Max(**layout_theme),
     layout.Floating(),
 ]
 

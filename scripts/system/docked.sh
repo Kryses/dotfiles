@@ -1,7 +1,7 @@
 #!/bin/zsh
-xrandr --output eDP-1 --off &&
-xrandr --output DP-3 --mode 5120x1440 --rate 240 --primary &&
-xrandr --output DP-2 --mode 2560x1440 --below DP-3 &&
+xrandr --output DP-1-4 --preferred --primary &&
+xrandr --output DP-2 --preferred --below DP-1-4 &&
+xrandr --output eDP-1 --preferred --left-of DP-2 &&
 reload-qtile.sh &&
 map-tablet.sh
 
