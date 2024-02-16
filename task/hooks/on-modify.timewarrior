@@ -93,10 +93,10 @@ def main(old, new):
         logging.debug("Tags: {}".format(parsed_tags))
         logging.debug(
             "Command: {}".format(
-                shlex.join(["timew", start_or_stop] + parsed_tags + [":yes"])
+                shlex.join(["timew", start_or_stop] + parsed_tags + [":yes", ":adjust"])
             )
         )
-        subprocess.call(["timew", start_or_stop] + parsed_tags + [":yes"])
+        subprocess.call(["timew", start_or_stop] + parsed_tags + [":yes", ":adjust"])
 
     # Modifications to task other than start/stop
     elif "start" in new and "start" in old:
@@ -104,8 +104,8 @@ def main(old, new):
         new_tags = extract_tags_from(new)
 
         if old_tags != new_tags:
-            subprocess.call(["timew", "untag", "@1"] + old_tags + [":yes"])
-            subprocess.call(["timew", "tag", "@1"] + new_tags + [":yes"])
+            subprocess.call(["timew", "untag", "@1"] + old_tags + [":yes", ":adjust"])
+            subprocess.call(["timew", "tag", "@1"] + new_tags + [":yes", ":adjust"])
 
         old_annotation = extract_annotation_from(old)
         new_annotation = extract_annotation_from(new)

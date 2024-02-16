@@ -46,18 +46,16 @@ layout {
 
     }
     tab name="Dev" {
+        floating_panes {
+            pane command="chatgpt"
+        }
         pane {
-            pane size=10 split_direction="vertical" {
-                pane command="peaclock" 
-               pane size=25 command="cal" 
+            pane focus=true cwd="/home/kryses/.config/nvim/lua/user"
+            pane split_direction="vertical" size="25%" {
+                pane cwd="/home/kryses/.config/nvim/lua/user"
+                pane cwd="/home/kryses/.config/nvim/lua/user"
             }
-            pane
         }
-        pane command="vit" size="25%" focus=true
-        floating_panes{
-            pane command="chatgpt" 
-        }
-    }
 
- 
+    } 
 }

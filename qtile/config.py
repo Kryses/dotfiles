@@ -135,6 +135,18 @@ keys = [
     Key([mod, "control"], "Up", lazy.layout.grow(), desc="Grow window to the right"),
     # Floating
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
+    Key(
+        [mod, "shift"],
+        "f",
+        lazy.layout.client_to_next().when(layout="stack"),
+        desc="move to next",
+    ),
+    Key(
+        [mod, "shift"],
+        "a",
+        lazy.layout.client_to_previous().when(layout="stack"),
+        desc="move to previous",
+    ),
     # Split
     Key(
         [mod, "shift"],
@@ -197,9 +209,9 @@ logger.warning("Bindings")
 # --------------------------------------------------------
 
 groups = [
-    Group("1", layout="monadthreecol"),
+    Group("1", layout="stack"),
     Group("2", layout="ratiotile"),
-    Group("3", layout="monadtall"),
+    Group("3", layout="ratiotile"),
     Group("4", layout="monadtall"),
     Group("5", layout="monadtall"),
 ]
