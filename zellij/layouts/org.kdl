@@ -51,9 +51,7 @@ layout {
                 pane command="peaclock" 
                 pane size=25 command="cal" 
             }
-            pane command="nvim" {
-                args "/home/kryses/notes/kryses/index.norg"
-            }
+            pane cwd="/home/kryses/krys-brain" command="nvim" 
         }
         pane command="vit" size="25%" focus=true
         floating_panes {
