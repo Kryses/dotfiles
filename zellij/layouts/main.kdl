@@ -3,7 +3,17 @@ layout {
         pane size=1 borderless=true {
             plugin location="zellij:compact-bar" 
         }
+        pane {
+            pane size=10 split_direction="vertical" {
+                pane command="peaclock" 
+               pane size=25 command="cal" 
+            }
+        }
         children
+        floating_panes {
+            pane x="90%" y=5 width="30%" height="90%" command="chatgpt" 
+        }
+        pane size=10 command="vit" 
         pane size=1 borderless=true {
             plugin location="file:~/.local/zellij/plugins/zjstatus.wasm" {
                 format_left  "{command_git_branch}"
@@ -45,9 +55,18 @@ layout {
         }
 
     }
-    tab name="Shell" focus=true {
-        pane split_direction="vertical" {
-            pane 
-        }
+    tab name="Home" focus=true 
+    tab name="Work" {
+        pane focus=true command="/home/kryses/dotfiles/scripts/productivity/connect-work.sh" start_suspended=true focus=true
     }
+    tab name="Dot" {
+        pane cwd="/home/kryses/dotfiles" command="nvim" start_suspended=true focus=true
+    }
+    tab name="NVim" {
+        pane cwd="/home/kryses/.config/nvim/lua/user" command="nvim" start_suspended=true
+    }
+    tab name="System" {
+        pane command="htop" focus=true start_suspended=true
+    }
+ 
 }
