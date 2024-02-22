@@ -118,11 +118,14 @@ uda.priority.values=F,H,M,L
 
 uda.size.type=string
 uda.size.label=Size 😅
-uda.size.default=L
-uda.size.values=H,M,L
-urgency.uda.size.H.coefficient=0.8
-urgency.uda.size.M.coefficient=1.0
-urgency.uda.size.L.coefficient=1.1
+uda.size.default=S
+uda.size.values=XXS,XS,S,M,L,XL,XXL
+urgency.uda.size.XXS.coefficient=1.5
+urgency.uda.size.XS.coefficient=1.25
+urgency.uda.size.S.coefficient=1.0
+urgency.uda.size.M.coefficient=0.0
+urgency.uda.size.L.coefficient=-0.5
+urgency.uda.size.XL.coefficient=-2.0
 
 uda.pts.type=numeric
 uda.pts.label=Score 🏆
