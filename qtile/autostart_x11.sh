@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 #   ___ _____ ___ _     _____   ____  _             _    
 #  / _ \_   _|_ _| |   | ____| / ___|| |_ __ _ _ __| |_  
 # | | | || |  | || |   |  _|   \___ \| __/ _` | '__| __| 
@@ -26,13 +26,14 @@ xfce4-power-manager &
 
 # Load notification service
 dunst &
-
 blueman-applet &
 nm-applet &
 pamac-tray &
 flameshot &
 kdeconnect-indicator &
 pa-applet &
+alacritty -e "znew terminal" &
+obsidian &
 
 
 # Launch polybar

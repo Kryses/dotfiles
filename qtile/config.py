@@ -11,25 +11,14 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from libqtile import hook
-from libqtile import qtile
-from libqtile import bar, layout
-from libqtile.config import (
-    Click,
-    Drag,
-    Group,
-    Key,
-    Match,
-    Screen,
-    DropDown,
-    ScratchPad,
-)
-from libqtile.lazy import lazy
-from libqtile.dgroups import simple_key_binder
-from pathlib import Path
-from libqtile.log_utils import logger
-from kryslib.colors.wal_colors import WalColors
 
+from kryslib.colors.wal_colors import WalColors
+from libqtile import bar, hook, layout, qtile
+from libqtile.config import (Click, Drag, DropDown, Group, Key, Match,
+                             ScratchPad, Screen)
+from libqtile.dgroups import simple_key_binder
+from libqtile.lazy import lazy
+from libqtile.log_utils import logger
 
 qtile_path = Path.home() / ".config" / "qtile"
 sys.path.append(str(qtile_path))
@@ -135,6 +124,18 @@ keys = [
     Key([mod, "control"], "Up", lazy.layout.grow(), desc="Grow window to the right"),
     # Floating
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating"),
+    Key(
+        [mod, "shift"],
+        "f",
+        lazy.layout.client_to_next().when(layout="stack"),
+        desc="move to next",
+    ),
+    Key(
+        [mod, "shift"],
+        "a",
+        lazy.layout.client_to_previous().when(layout="stack"),
+        desc="move to previous",
+    ),
     # Split
     Key(
         [mod, "shift"],
@@ -197,9 +198,9 @@ logger.warning("Bindings")
 # --------------------------------------------------------
 
 groups = [
-    Group("1", layout="monadtall"),
-    Group("2", layout="monadtall"),
-    Group("3", layout="monadtall"),
+    Group("1", layout="stack"),
+    Group("2", layout="ratiotile"),
+    Group("3", layout="ratiotile"),
     Group("4", layout="monadtall"),
     Group("5", layout="monadtall"),
 ]
@@ -255,6 +256,12 @@ scratch_pad_postions = {
             "width": 0.3,
             "height": 0.7,
         },
+        "email": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.20,
+            "height": 0.6,
+        },
     },
     "mobile": {
         "chatgpt": {
@@ -299,6 +306,12 @@ scratch_pad_postions = {
             "width": 0.9,
             "height": 0.6,
         },
+        "email": {
+            "x": 0.05,
+            "y": 0.05,
+            "width": 0.20,
+            "height": 0.6,
+        },
     },
 }
 
@@ -308,21 +321,33 @@ groups.append(
         "6",
         [
             DropDown(
-                "notes",
-                f"alacritty -e nvim '{home}/notes/kryses/index.norg'",
+                "obsidian",
+                "obsidian",
                 on_focus_lost_hide=False,
                 **current_scratch_pad_postions["notes"],
             ),
             DropDown(
+                "calendar",
+                "vivaldi --app=https://outlook.office.com/calendar/view/day",
+                on_focus_lost_hide=False,
+                **current_scratch_pad_postions["notes"],
+            ),
+            DropDown(
+                "email",
+                "vivaldi --app=https://outlook.office.com/mail/",
+                on_focus_lost_hide=False,
+                **current_scratch_pad_postions["email"],
+            ),
+            DropDown(
                 "terminal",
                 "alacritty",
-                on_focus_lost_hide=True,
+                on_focus_lost_hide=False,
                 **current_scratch_pad_postions["terminal"],
             ),
             DropDown(
                 "vit",
                 "alacritty -e vit",
-                on_focus_lost_hide=True,
+                on_focus_lost_hide=False,
                 **current_scratch_pad_postions["vit"],
             ),
             DropDown(
@@ -340,7 +365,7 @@ groups.append(
             DropDown(
                 "spotify",
                 "spotify",
-                on_focus_lost_hide=True,
+                on_focus_lost_hide=False,
                 **current_scratch_pad_postions["spotify"],
             ),
         ],
@@ -355,6 +380,8 @@ keys.extend(
         Key([mod], "a", lazy.group["6"].dropdown_toggle("scrcpy")),
         Key([mod], "s", lazy.group["6"].dropdown_toggle("slack")),
         Key([mod, "Shift"], "s", lazy.group["6"].dropdown_toggle("spotify")),
+        Key([mod, "Shift"], "c", lazy.group["6"].dropdown_toggle("calendar")),
+        Key([mod, "Shift"], "e", lazy.group["6"].dropdown_toggle("email")),
     ]
 )
 
@@ -384,11 +411,11 @@ layout_theme = {
 # --------------------------------------------------------
 
 layouts = [
-    layout.Max(**layout_theme),
-    layout.MonadTall(**layout_theme),
-    layout.MonadWide(**layout_theme),
     layout.MonadThreeCol(**layout_theme),
+    layout.MonadTall(**layout_theme),
     layout.RatioTile(**layout_theme),
+    layout.Stack(**layout_theme),
+    layout.Max(**layout_theme),
     layout.Floating(),
 ]
 

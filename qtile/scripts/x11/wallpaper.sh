@@ -15,11 +15,11 @@ case $1 in
     "init")
         if [ -f ~/.cache/current_wallpaper.jpg ]; then
             wal -q -i ~/.cache/current_wallpaper.jpg
-            xwallpaper --stretch ~/.cache/current_wallpaper.jpg
+            xwallpaper --center ~/.cache/current_wallpaper.jpg
         else
             wallpaper_path=$(find ~/wallpaper -type f | shuf -n 1)    
             wal -q -i $wallpaper_path
-            xwallpaper --stretch $wallpaper_path
+            xwallpaper --center $wallpaper_path
         fi
     ;;
 
@@ -32,14 +32,14 @@ case $1 in
         fi
         wallpaper_path=~/wallpaper/$selected
         wal -q -i $wallpaper_path
-        xwallpaper --stretch $wallpaper_path
+        xwallpaper --center $wallpaper_path
     ;;
 
     # Randomly select wallpaper 
     *)
         wallpaper_path=$(find ~/wallpaper -type f | shuf -n 1)    
         wal -q -i $wallpaper_path
-        xwallpaper --stretch $wallpaper_path
+        xwallpaper --center $wallpaper_path
     ;;
 
 esac
