@@ -1,3 +1,8 @@
 .kryses/*
 .nvim/*
 .venv/*
+.linux-env/*
+.windows-env/*
+local-project.toml
+.venv
+*.swp
