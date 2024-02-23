@@ -11,25 +11,14 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from libqtile import hook
-from libqtile import qtile
-from libqtile import bar, layout
-from libqtile.config import (
-    Click,
-    Drag,
-    Group,
-    Key,
-    Match,
-    Screen,
-    DropDown,
-    ScratchPad,
-)
-from libqtile.lazy import lazy
-from libqtile.dgroups import simple_key_binder
-from pathlib import Path
-from libqtile.log_utils import logger
-from kryslib.colors.wal_colors import WalColors
 
+from kryslib.colors.wal_colors import WalColors
+from libqtile import bar, hook, layout, qtile
+from libqtile.config import (Click, Drag, DropDown, Group, Key, Match,
+                             ScratchPad, Screen)
+from libqtile.dgroups import simple_key_binder
+from libqtile.lazy import lazy
+from libqtile.log_utils import logger
 
 qtile_path = Path.home() / ".config" / "qtile"
 sys.path.append(str(qtile_path))
@@ -352,13 +341,13 @@ groups.append(
             DropDown(
                 "terminal",
                 "alacritty",
-                on_focus_lost_hide=True,
+                on_focus_lost_hide=False,
                 **current_scratch_pad_postions["terminal"],
             ),
             DropDown(
                 "vit",
                 "alacritty -e vit",
-                on_focus_lost_hide=True,
+                on_focus_lost_hide=False,
                 **current_scratch_pad_postions["vit"],
             ),
             DropDown(
@@ -376,7 +365,7 @@ groups.append(
             DropDown(
                 "spotify",
                 "spotify",
-                on_focus_lost_hide=True,
+                on_focus_lost_hide=False,
                 **current_scratch_pad_postions["spotify"],
             ),
         ],

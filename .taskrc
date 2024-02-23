@@ -149,7 +149,7 @@ urgency.user.tag.tech_trailblazer.coefficient=0.2
 urgency.user.tag.DELEGATED.coefficient=-15.0    
 urgency.user.tag.blocked.coefficient=-10.0    
 urgency.user.tag.support.coefficient=1.0    
-urgency.user.tag.review.coefficient=-10.0    
+urgency.user.tag.in_review.coefficient=-10.0    
 
 
 uda.priority.values=F,H,M,L
