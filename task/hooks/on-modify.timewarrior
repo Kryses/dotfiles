@@ -27,10 +27,10 @@
 ###############################################################################
 
 import json
-import subprocess
-import sys
 import logging
 import shlex
+import subprocess
+import sys
 
 logging.basicConfig(filename="/tmp/timewarrior.log", level=logging.DEBUG)
 
@@ -49,13 +49,17 @@ except AttributeError:
 
 def extract_tags_from(json_obj):
     # Extract attributes for use as tags.
-    tags = [json_obj["description"]]
+    tags = []
 
     if "project" in json_obj:
         tags.append(json_obj["project"])
 
     if "tags" in json_obj:
-        tags.extend(json_obj["tags"])
+        for tag in json_obj["tags"]:
+            if "_jira" in tag:
+                tags.insert(0, tag)
+
+    tags.append(json_obj["description"])
 
     return tags
 
@@ -80,23 +84,7 @@ def main(old, new):
 
     if start_or_stop:
         tags = extract_tags_from(new)
-        logging.debug("Tags: {}".format(tags))
-        tags = [x for x in tags if "jira_" not in x]
-
-        parsed_tags = []
-        for tag in tags:
-            if "(bw)" in tag:
-                parsed_tags.append(tag.replace("(bw)", ""))
-            else:
-                parsed_tags.append(tag)
-
-        logging.debug("Tags: {}".format(parsed_tags))
-        logging.debug(
-            "Command: {}".format(
-                shlex.join(["timew", start_or_stop] + parsed_tags + [":yes", ":adjust"])
-            )
-        )
-        subprocess.call(["timew", start_or_stop] + parsed_tags + [":yes", ":adjust"])
+        subprocess.call(["timew", start_or_stop] + tags + [":yes", ":adjust"])
 
     # Modifications to task other than start/stop
     elif "start" in new and "start" in old:

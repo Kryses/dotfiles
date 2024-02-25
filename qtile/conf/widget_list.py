@@ -1,11 +1,18 @@
-from libqtile import widget
-from qtile_extras import widget as ex_widget
-from qtile_extras.widget.decorations import PowerLineDecoration, BorderDecoration
-from qtile_extras.widget import modify
-from kryslib.colors.wal_colors import WalColors
-from kryslib.colors.color import Color
+from importlib import reload
 from pathlib import Path
 
+import kryslib.qtile_widgets.task_widget
+from kryslib.colors.color import Color
+from kryslib.colors.wal_colors import WalColors
+from kryslib.qtile_widgets.task_widget import TaskWidget
+
+reload(kryslib.qtile_widgets.task_widget)
+
+from libqtile import widget
+from qtile_extras import widget as ex_widget
+from qtile_extras.widget import modify
+from qtile_extras.widget.decorations import (BorderDecoration,
+                                             PowerLineDecoration)
 
 wal_colors = WalColors(walcolor_json=Path.home() / ".cache/wal/colors.json")
 decor_left = {
@@ -47,6 +54,17 @@ def get_widget_list():
             background=str(BACKGROUND.scale(1.0)),
             padding=10,
             scale=0.7,
+            icon_size=18,
+        )
+    )
+    widget_list.append(
+        ex_widget.GithubNotifications(
+            **decor_left,
+            icon_size=25,
+            background=str(BACKGROUND.scale(0.8)),
+            foreground=str(FORGROUND),
+            inactive_colour=str(FORGROUND.scale(0.5)),
+            active_colour="#ffBF00",
         )
     )
     widget_list.append(
@@ -55,7 +73,7 @@ def get_widget_list():
             **decor_left,
             padding_x=10,
             padding_y=5,
-            background=str(BACKGROUND.scale(0.8)),
+            background=str(BACKGROUND.scale(0.6)),
             highlight_method="block",
             highlight=str(FORGROUND),
             block_border=str(FORGROUND),
@@ -73,41 +91,23 @@ def get_widget_list():
     )
     widget_list.append(
         modify(
-            widget.TextBox,
-            **decor_left,
-            background=str(BACKGROUND.scale(0.6)),
-            text="  ",
-            foreground=str(FORGROUND),
-            fontsize=18,
-            mouse_callbacks={
-                "Button1": lambda: qtile.spawn(
-                    "sh " + home + "/dotfiles/.settings/browser.sh"
-                )
-            },
-        )
-    )
-    widget_list.append(
-        modify(
-            widget.TextBox,
-            **decor_left,
-            background=str(BACKGROUND.scale(0.6)),
-            text="  ",
-            foreground=str(FORGROUND),
-            fontsize=18,
-            mouse_callbacks={
-                "Button1": lambda: qtile.spawn(
-                    "sh " + home + "/dotfiles/.settings/filemanager.sh"
-                )
-            },
-        )
-    )
-    widget_list.append(
-        modify(
             widget.WindowName,
             **decor_left,
             width=350,
             max_chars=40,
             background=str(BACKGROUND.scale(0.4)),
+        )
+    )
+    widget_list.append(widget.Spacer())
+    widget_list.append(
+        modify(
+            TaskWidget,
+            scroll=True,
+            update_interval=1,
+            max_chars=300,
+            width=550,
+            background=str(wal_colors.color0),
+            foreground=str(FORGROUND),
         )
     )
     widget_list.append(widget.Spacer())

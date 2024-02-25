@@ -12,13 +12,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-from kryslib.colors.wal_colors import WalColors
 from libqtile import bar, hook, layout, qtile
-from libqtile.config import (Click, Drag, DropDown, Group, Key, Match,
-                             ScratchPad, Screen)
+from libqtile.config import Click, Drag, DropDown, Group, Key, Match, ScratchPad, Screen
 from libqtile.dgroups import simple_key_binder
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
+
+from kryslib.colors.wal_colors import WalColors
 
 qtile_path = Path.home() / ".config" / "qtile"
 sys.path.append(str(qtile_path))
@@ -198,7 +198,7 @@ logger.warning("Bindings")
 # --------------------------------------------------------
 
 groups = [
-    Group("1", layout="stack"),
+    Group("1", layout="monadthreecol"),
     Group("2", layout="ratiotile"),
     Group("3", layout="ratiotile"),
     Group("4", layout="monadtall"),
@@ -214,35 +214,11 @@ dgroups_key_binder = simple_key_binder(mod)
 logger.warning("Scratchpads")
 scratch_pad_postions = {
     "docked": {
-        "chatgpt": {
-            "x": 0.3,
-            "y": 0.1,
-            "width": 0.40,
-            "height": 0.7,
-        },
-        "notes": {
-            "x": 0.69,
-            "y": 0.05,
-            "width": 0.3,
-            "height": 0.7,
-        },
         "terminal": {
             "x": 0.3,
             "y": 0.1,
             "width": 0.40,
             "height": 0.7,
-        },
-        "vit": {
-            "x": 0.05,
-            "y": 0.05,
-            "width": 0.20,
-            "height": 0.6,
-        },
-        "scrcpy": {
-            "x": 0.8,
-            "y": 0.05,
-            "width": 0.15,
-            "height": 0.6,
         },
         "slack": {
             "x": 0.69,
@@ -251,47 +227,17 @@ scratch_pad_postions = {
             "height": 0.7,
         },
         "spotify": {
-            "x": 0.69,
-            "y": 0.05,
-            "width": 0.3,
-            "height": 0.7,
-        },
-        "email": {
             "x": 0.05,
             "y": 0.05,
-            "width": 0.20,
+            "width": 0.9,
             "height": 0.6,
         },
     },
     "mobile": {
-        "chatgpt": {
-            "x": 0.05,
-            "y": 0.05,
-            "width": 0.9,
-            "height": 0.6,
-        },
-        "notes": {
-            "x": 0.05,
-            "y": 0.05,
-            "width": 0.9,
-            "height": 0.6,
-        },
         "terminal": {
             "x": 0.05,
             "y": 0.05,
             "width": 0.9,
-            "height": 0.6,
-        },
-        "vit": {
-            "x": 0.05,
-            "y": 0.05,
-            "width": 0.9,
-            "height": 0.6,
-        },
-        "scrcpy": {
-            "x": 0.8,
-            "y": 0.05,
-            "width": 0.15,
             "height": 0.6,
         },
         "slack": {
@@ -304,12 +250,6 @@ scratch_pad_postions = {
             "x": 0.05,
             "y": 0.05,
             "width": 0.9,
-            "height": 0.6,
-        },
-        "email": {
-            "x": 0.05,
-            "y": 0.05,
-            "width": 0.20,
             "height": 0.6,
         },
     },
@@ -321,40 +261,10 @@ groups.append(
         "6",
         [
             DropDown(
-                "obsidian",
-                "obsidian",
-                on_focus_lost_hide=False,
-                **current_scratch_pad_postions["notes"],
-            ),
-            DropDown(
-                "calendar",
-                "vivaldi --app=https://outlook.office.com/calendar/view/day",
-                on_focus_lost_hide=False,
-                **current_scratch_pad_postions["notes"],
-            ),
-            DropDown(
-                "email",
-                "vivaldi --app=https://outlook.office.com/mail/",
-                on_focus_lost_hide=False,
-                **current_scratch_pad_postions["email"],
-            ),
-            DropDown(
                 "terminal",
                 "alacritty",
                 on_focus_lost_hide=False,
                 **current_scratch_pad_postions["terminal"],
-            ),
-            DropDown(
-                "vit",
-                "alacritty -e vit",
-                on_focus_lost_hide=False,
-                **current_scratch_pad_postions["vit"],
-            ),
-            DropDown(
-                "scrcpy",
-                "scrcpy -d",
-                on_focus_lost_hide=False,
-                **current_scratch_pad_postions["scrcpy"],
             ),
             DropDown(
                 "slack",
@@ -374,14 +284,9 @@ groups.append(
 
 keys.extend(
     [
-        Key([mod], "x", lazy.group["6"].dropdown_toggle("notes")),
         Key([mod], "z", lazy.group["6"].dropdown_toggle("terminal")),
-        Key([mod], "v", lazy.group["6"].dropdown_toggle("vit")),
-        Key([mod], "a", lazy.group["6"].dropdown_toggle("scrcpy")),
         Key([mod], "s", lazy.group["6"].dropdown_toggle("slack")),
         Key([mod, "Shift"], "s", lazy.group["6"].dropdown_toggle("spotify")),
-        Key([mod, "Shift"], "c", lazy.group["6"].dropdown_toggle("calendar")),
-        Key([mod, "Shift"], "e", lazy.group["6"].dropdown_toggle("email")),
     ]
 )
 
@@ -431,7 +336,6 @@ extension_defaults = widget_defaults.copy()
 # https://qtile-extras.readthedocs.io/en/stable/manual/how_to/decorations.html
 # --------------------------------------------------------
 widget_list = get_widget_list()
-logger.warning(widget_list)
 
 # --------------------------------------------------------
 # Screens
