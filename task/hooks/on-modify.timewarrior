@@ -51,17 +51,25 @@ def extract_tags_from(json_obj):
     # Extract attributes for use as tags.
     tags = []
 
-    if "project" in json_obj:
-        tags.append(json_obj["project"])
-
     if "tags" in json_obj:
         for tag in json_obj["tags"]:
-            if "_jira" in tag:
+            if "jira" not in tag:
                 tags.insert(0, tag)
 
-    tags.append(json_obj["description"])
+    if "project" in json_obj:
+        tags.append("project|" + json_obj["project"])
+    else:
+        tags.append("project|No Project")
+    tags.append("task|" + json_obj["description"])
+    cleaned_tags = []
+    for tag in tags:
+        if "(bw)" in tag:
+            cleaned_tags.append(tag.replace("(bw)", ""))
+        else:
+            cleaned_tags.append(tag)
 
-    return tags
+    logging.debug("Tags: %s", cleaned_tags)
+    return cleaned_tags
 
 
 def extract_annotation_from(json_obj):
@@ -84,6 +92,7 @@ def main(old, new):
 
     if start_or_stop:
         tags = extract_tags_from(new)
+        logging.debug("Tags: %s", tags)
         subprocess.call(["timew", start_or_stop] + tags + [":yes", ":adjust"])
 
     # Modifications to task other than start/stop
