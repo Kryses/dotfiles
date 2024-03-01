@@ -12,13 +12,13 @@ import subprocess
 import sys
 from pathlib import Path
 
+from kryslib.colors.wal_colors import WalColors
 from libqtile import bar, hook, layout, qtile
-from libqtile.config import Click, Drag, DropDown, Group, Key, Match, ScratchPad, Screen
+from libqtile.config import (Click, Drag, DropDown, Group, Key, Match,
+                             ScratchPad, Screen)
 from libqtile.dgroups import simple_key_binder
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
-
-from kryslib.colors.wal_colors import WalColors
 
 qtile_path = Path.home() / ".config" / "qtile"
 sys.path.append(str(qtile_path))
@@ -227,10 +227,10 @@ scratch_pad_postions = {
             "height": 0.7,
         },
         "spotify": {
-            "x": 0.05,
+            "x": 0.69,
             "y": 0.05,
-            "width": 0.9,
-            "height": 0.6,
+            "width": 0.3,
+            "height": 0.7,
         },
     },
     "mobile": {

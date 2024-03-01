@@ -110,7 +110,8 @@ urgency.blocked.coefficient=-15.0 # blocked by other tasks
 #Projects
 urgency.user.project.home.lifeos.tasks.coefficient=2.0    
 urgency.user.project.home.lifeos.coefficient=1.0    
-urgency.user.project.HALAUNCH.lifeos.coefficient=2.0    
+urgency.user.project.HALAUNCH.coefficient=2.0    
+urgency.user.project.HALONTOOLKIT.coefficient=1.0    
 
 #Goals
 ## Sort Term 1.0-1.5
@@ -200,3 +201,4 @@ taskd.key=\/home\/kryses\/.task\/kryses.key.pem
 taskd.credentials=Kryses\/kryses\/46db8d6e-be28-4dc4-b191-8a9f7cd171d4
 taskd.server = 192.168.1.224:53589
 taskd.trust = allow all
+context=WK
