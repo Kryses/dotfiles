@@ -66,6 +66,8 @@ alias.up-hm = project:home +hm +unplanned due:tomorrow priority:H
 alias.up-yt = project:home +hm +youtube +unplanned due:tomorrow priority:H
 alias.meeting = project:work +WK +meeting due:tomorrow priority:H
 alias.up-meeting = project:work +WK +unplanned +meeting due:tomorrow priority:H
+alias.chore = project:home +hm +next due:tomorrow priority:H
+alias.sleep = project:home +hm +sleep +next due:tomorrow priority:H
 alias.home = +hm or +hab
 
 #Reports

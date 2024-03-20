@@ -110,9 +110,9 @@ keys = [
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
     Key(
-        [mod],
+        [],
         "Print",
-        lazy.spawn(home + "/dotfiles/qtile/scripts/x11/screenshot.sh"),
+        lazy.spawn("flameshot gui"),
     ),
     # Size
     Key(

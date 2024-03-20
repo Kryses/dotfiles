@@ -6,13 +6,13 @@
 # |___/\__\__,_|_|  \__| |_| |_| \___// \___\__|\__|
 #                                   |__/            
 
-python3 -m venv .venv
+python3 -m venv venv
 touch requirements.txt
 touch .gitignore
 touch README.md
 touch pyproject.toml
 
-echo '.venv/*' >> .gitignore
+echo 'venv/*' >> .gitignore
 project_name=$(basename "$PWD")
 echo $project_name
 cat $HOME/scripts/templates/pyproject-standard.toml | sed 's/{project_name}/'$project_name'/g' >> pyproject.toml

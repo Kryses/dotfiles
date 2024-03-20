@@ -22,7 +22,7 @@ exclude = ["**/node_modules",
 ignore = []
 stubPath = ""
 venvPath = "./"
-venv = ".venv"
+venv = "venv"
 
 reportMissingImports = true
 reportMissingTypeStubs = false

@@ -8,5 +8,8 @@ site_list=(
 
 echo "Opening sites: $site_list"
 for site in $site_list; do
-  qutebrowser -R --target window $site &
+  vivaldi-stable --new-window $site &
 done
+
+slack &
+parsecd 

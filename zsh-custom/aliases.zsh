@@ -18,14 +18,13 @@ alias docked='autorandr -l docked'
 alias docked-wacom='autorandr -l docked-wacom'
 alias confz='nvim ~/.zshrc'
 alias conft='nvim ~/.tmux.conf'
-alias ac='source ./.venv/bin/activate'
+alias ac='source ./venv/bin/activate'
 alias work='cd ~/repos/work'
 alias tmux='tmux -2'
 alias main='~/scripts/development/open-main.sh'
 alias kz='zellij kill-all-sessions'
 alias halon-up='nmcli connection up Halon'
 alias halon-down='nmcli connection down Halon'
-alias halon-rdp='rdesktop -d halonlan -u cprovencher -p Halon1234 -g 1920x1080 10.205.42.100'
 
 #------------------------------------------------------------
 # Aliases from qtile tutorial
@@ -95,9 +94,14 @@ znew() {
 }
 
 cwork() {
-    ssh $(pass work/hl/hal-ssh-ip)
+    ssh $(pass work/hl/hal-ssh-ip) -p 2222 
 }
-alias workm='sshfs $(pass work/hl/hal-ssh-ip):E:/develoment ~/repos/work'
+alias workm='sshfs $(pass work/hl/hal-ssh-ip):E:/development ~/repos/work'
 prime-run() {
     __NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia $@
 }
+
+work-sync() {
+    rsync -e "ssh -p 2222" -rvaz --update --exclude='.git' ~/repos/work/pipeline-workspace $(pass work/hl/hal-ssh-ip):/mnt/e/development
+}
+
