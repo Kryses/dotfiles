@@ -1,0 +1,71 @@
+.pets {
+  color: #EFE3FF;
+  background-color: #0d001d;
+  font-family: "JetBrainsMono Nerd Font Mono", "JetBrains Mono";
+  z-index: 1;
+}
+.pets :is(h1, .HyperMD-header.HyperMD-header-1) {
+  color: #EFE3FF;
+  text-align: center;
+  font-size: 60px;
+  font-family: "Scriptina", "JetBrainsMono Nerd Font Mono", "JetBrains Mono";
+  padding: 0 !important;
+  letter-spacing: 1px;
+}
+.pets :is(h2, .HyperMD-header.HyperMD-header-2) {
+  color: #EFE3FF;
+  text-align: center;
+  font-size: 30px;
+  font-family: "Scriptina", "JetBrainsMono Nerd Font Mono", "JetBrains Mono";
+  font-style: italic;
+  padding: 0 !important;
+}
+.pets :is(h3, .HyperMD-header.HyperMD-header-3) {
+  color: #EFE3FF;
+  text-align: center;
+  font-size: 32px;
+  font-family: "Scriptina", "JetBrainsMono Nerd Font Mono", "JetBrains Mono";
+  padding-top: 0;
+}
+
+.portrait-border {
+  position: fixed;
+  z-index: 0;
+  right: 45px;
+  top: 45px;
+  width: 210px;
+  height: 210px;
+  clip-path: circle(50%);
+  background: #EFE3FF;
+}
+
+div[src$="#portrait"], span[src$="#portrait"] {
+  position: fixed;
+  z-index: 0;
+  right: 50px;
+  top: 50px;
+  width: 200px;
+  height: 200px;
+  clip-path: circle(50%);
+}
+
+div[src$="#wrap-right"], span[src$="#wrap-right"] {
+  position: relative;
+  width: 30%;
+  margin: 10px;
+  float: right;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+div[src$="#wrap-left"], span[src$="#wrap-left"] {
+  position: relative;
+  z-index: 1;
+  width: 30%;
+  margin: 10px;
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+/*# sourceMappingURL=krys-brain.css.map */
