@@ -90,6 +90,7 @@ if [ -z $TMUX_POWERLINE_WINDOW_STATUS_FORMAT ]; then
 	TMUX_POWERLINE_WINDOW_STATUS_FORMAT=(
 		"#[$(format regular)]" \
 		"  #I#{?window_flags,#F, } " \
+
 		"$TMUX_POWERLINE_SEPARATOR_THIN" \
 		" #W "
 	)
@@ -124,16 +125,16 @@ fi
 
 if [ -z $TMUX_POWERLINE_LEFT_STATUS_SEGMENTS ]; then
 	TMUX_POWERLINE_LEFT_STATUS_SEGMENTS=(
+		# "tmux_session_info $blue $thm_bg" \
+		"hostname $eggplant $thm_bg" \
 		"pwd $thm_orange $surface0" \
-		#"tmux_session_info $blue $thm_bg" \
-		#"hostname $eggplant $thm_bg" \
 		# "ifstat 30 255" \
 		#"ifstat_sys 30 255" \
-		#"lan_ip $sky_blue $thm_bg ${TMUX_POWERLINE_SEPARATOR_RIGHT_THIN}" \
+		# "lan_ip $sky_blue $thm_bg ${TMUX_POWERLINE_SEPARATOR_RIGHT_THIN}" \
 		#"wan_ip $sky_blue $thm_bg" \
 		"vcs_branch $thm_gray" \
 		# "vcs_compare 60 255" \
-		#"vcs_staged 64 255" \
+		# "vcs_staged 64 255" \
 		#"vcs_modified 9 255" \
 		#"vcs_others 245 0" \
 	)
@@ -144,18 +145,18 @@ if [ -z $TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS ]; then
 		# "earthquake 3 0" \
 		#"macos_notification_count 29 255" \
 		#"mailcount 9 255" \
-		#"now_playing $spotify_green $spotify_black" \
+		"now_playing $spotify_green $spotify_black" \
 		# "cpu 240 136" \
 		# "load 237 167" \
 		"tmux_mem_cpu_load 234 136" \
 		#"rainbarf 0 ${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR}" \
 		#"xkb_layout 125 117" \
-		"timew $teal $thm_bg ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
 		"date_day $thm_orange $thm_bg ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
 		"date $thm_orange $thm_bg ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
 		"time $thm_orange $thm_bg ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
-		#"weather 37 255" ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD} \
+		"timew $teal $thm_bg ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
+		# "weather 37 255" ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD} \
 		#"utc_time 235 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
-		"battery $thm_blue  $thm_bg ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
+		# "battery $thm_blue  $thm_bg ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
 	)
 fi

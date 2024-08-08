@@ -75,18 +75,19 @@ service = jira
 jira.base_uri = https://halon.atlassian.net
 jira.username = cprovencher@halon.com
 jira.password = @oracle:eval:pass work/hl/jira-api
-jira.query = assignee = "Chad Provencher" and status != closed and status != resolved and status != done and project in ( "HALAUNCH",  "ENG", "HTOOLKIT" )
+jira.query = assignee = "Chad Provencher" and status != closed and status != resolved and status != done and project in ( "ENG" )
 # Set this to your jira major version. We currently support only jira version
 # 4 and 5(the default). You can find your particular version in the footer at
 # the dashboard.
 jira.version = 5
-jira.add_tags = JIRA,WK
+jira.add_tags = jira,work
 jira.import_labels_as_tags = True
 jira.import_sprints_as_tags = True
-jira.label_template = jira_{{label}}
+jira.label_template = {{label}}
 jira.fetch_comments = False
 jira.fetch_history = False
 jira.max_summary_length = 0
+jira.description_template = {{jiraid}} - {{jirasummary}}
 
 [notifications]
 notifications = True
