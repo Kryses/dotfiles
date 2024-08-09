@@ -19,7 +19,7 @@ __process_settings() {
 run_segment() {
         __process_settings
         if [ $(timew get dom.active) -eq 1 ]; then
-  				echo 📝 $(timew | grep -oP '"task\|\K[^"]+'| cut -c 1-30)...
+  				echo   $(task status:pending count)
   			fi
 	return 0
 }

@@ -75,7 +75,7 @@ service = jira
 jira.base_uri = https://halon.atlassian.net
 jira.username = cprovencher@halon.com
 jira.password = @oracle:eval:pass work/hl/jira-api
-jira.query = assignee = "Chad Provencher" and status != closed and status != resolved and status != done and project in ( "ENG" )
+jira.query = assignee = "Chad Provencher" and status != closed and status != resolved and status != done and project in ( "ENG" ) and sprint in openSprints()
 # Set this to your jira major version. We currently support only jira version
 # 4 and 5(the default). You can find your particular version in the footer at
 # the dashboard.
