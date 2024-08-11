@@ -2,10 +2,11 @@
 # Modeline {
 #	 vi: foldmarker={,} foldmethod=marker foldlevel=0 tabstop=4 filetype=sh
 # }
-
+set -x
+exec 2>/tmp/tmux-powerline.log
 # General {
 	# Show which segment fails and its exit code.
-	export TMUX_POWERLINE_DEBUG_MODE_ENABLED="false"
+	export TMUX_POWERLINE_DEBUG_MODE_ENABLED="true"
 	# Use patched font symbols.
 	export TMUX_POWERLINE_PATCHED_FONT_IN_USE="true"
 
