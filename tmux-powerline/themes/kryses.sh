@@ -98,7 +98,7 @@ if [ -z $TMUX_POWERLINE_LEFT_STATUS_SEGMENTS ]; then
 	TMUX_POWERLINE_LEFT_STATUS_SEGMENTS=(
 		# "tmux_session_info $blue $thm_bg" \
 		"hostname 236 136" \
-		"pwd 235 136" \
+		# "pwd 235 136" \
 		# "ifstat 30 255" \
 		#"ifstat_sys 30 255" \
 		# "lan_ip $sky_blue $thm_bg ${TMUX_POWERLINE_SEPARATOR_RIGHT_THIN}" \

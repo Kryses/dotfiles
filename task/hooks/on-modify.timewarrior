@@ -72,7 +72,6 @@ def extract_tags_from(json_obj):
             continue
         resorted_tags.append(tag)
 
-    logging.debug("Tags: %s", resorted_tags)
     return resorted_tags
 
 
@@ -103,8 +102,10 @@ def main(old, new):
     elif "start" in new and "start" in old:
         old_tags = extract_tags_from(old)
         new_tags = extract_tags_from(new)
+        logging.debug("Tags: %s", resorted_tags)
 
         if old_tags != new_tags:
+            log
             subprocess.call(["timew", "untag", "@1"] + old_tags + [":yes", ":adjust"])
             subprocess.call(["timew", "tag", "@1"] + new_tags + [":yes", ":adjust"])
 
