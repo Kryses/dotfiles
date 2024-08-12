@@ -71,6 +71,8 @@ alias vmstop='virsh --connect qemu:///system destroy win11'
 # EDIT CONFIG FILES
 # -----------------------------------------------------
 
+alias rt='cd ~/.task && git reset --hard && git pull && cd -'
+
 alias conf-qtile='nvim ~/dotfiles/qtile/config.py'
 alias conf-picom='nvim ~/dotfiles/picom/picom.conf'
 alias conf-bash='nvim ~/dotfiles/.bashrc'
