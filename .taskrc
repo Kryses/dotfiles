@@ -52,8 +52,8 @@ active.indicator=🕑
 
 
 #Contexts
-context.WK = +WK #work
-context.HM = +hm 
+context.WK = +work 
+context.HM = +home
 context.HAB = +hab #habits
 context.HOME = +hm or +hab
 context.INBOX = project:inbox
@@ -202,3 +202,4 @@ taskd.key=\/home\/kryses\/.task\/kryses.key.pem
 taskd.credentials=Kryses\/kryses\/46db8d6e-be28-4dc4-b191-8a9f7cd171d4
 taskd.server = 192.168.1.224:53589
 taskd.trust = allow all
+context=WK

@@ -34,7 +34,9 @@ import pathlib
 import os
 
 home = os.getenv('HOME')
-logging.basicConfig(filename=pathlib.Path(f"{home}/.local/share/task/timewarrior.log").resolve(), level=logging.DEBUG)
+task_log_file = pathlib.Path(f"{home}/.local/share/task/timewarrior.log").resolve()
+task_log_file.parent.mkdir(parents=True, exist_ok=True)
+logging.basicConfig(filename=task_log_file, level=logging.DEBUG)
 # Hook should extract all the following for use as Timewarrior tags:
 #   UUID
 #   Project
