@@ -15,15 +15,14 @@
 # Use the command 'task show' to see all defaults and overrides
 
 # Files
-data.location=/home/kryses/.task
+data.location=~/.task
 log=on
-log.file=/home/kryses/.task/task.log
-
+log.file=~/.local/share/task/task.log
 # To use the default location of the XDG directories,
 # move this configuration file from ~/.taskrc to ~/.config/task/taskrc and uncomment below
 
 #data.location=~/.local/share/task
-hooks.location=~/.config/task/hooks
+hooks.location=~/.config/task/hooks/
 
 default.project=inbox
 priority.default=M

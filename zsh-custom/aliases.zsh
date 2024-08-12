@@ -76,6 +76,7 @@ alias conf-picom='nvim ~/dotfiles/picom/picom.conf'
 alias conf-bash='nvim ~/dotfiles/.bashrc'
 alias conf-zsh='nvim ~/dotfiles/zsh-custom'
 alias conf-tmux='nvim ~/dotfiles/tmux/.tmux.conf'
+alias conf-task='nvim ~/dotfiles/.taskrc'
 alias conf-dot='cd ~/dotfiles && nvim'
 alias conf-nvim='cd ~/.config/nvim && nvim'
 
