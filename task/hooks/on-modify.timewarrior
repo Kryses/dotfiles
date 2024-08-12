@@ -57,19 +57,22 @@ def extract_tags_from(json_obj):
                 tags.insert(0, tag)
 
     if "project" in json_obj:
-        tags.append("project|" + json_obj["project"])
+        tags.insert(0, "project|" + json_obj["project"])
     else:
-        tags.append("project|No Project")
-    tags.append("task|" + json_obj["description"])
-    cleaned_tags = []
-    for tag in tags:
-        if "(bw)" in tag:
-            cleaned_tags.append(tag.replace("(bw)", ""))
-        else:
-            cleaned_tags.append(tag)
+        tags.insert(0, "project|No Project")
+    tags.insert(1, "task|" + json_obj["description"])
 
-    logging.debug("Tags: %s", cleaned_tags)
-    return cleaned_tags
+    resorted_tags = []
+    for tag in tags:
+        if 'project|' in tag:
+            resorted_tags.insert(0, tag)
+            continue
+        if 'task|'  in tag:
+            resorted_tags.insert(1, tag)
+            continue
+        resorted_tags.append(tag)
+
+    return resorted_tags
 
 
 def extract_annotation_from(json_obj):
@@ -99,8 +102,10 @@ def main(old, new):
     elif "start" in new and "start" in old:
         old_tags = extract_tags_from(old)
         new_tags = extract_tags_from(new)
+        logging.debug("Tags: %s", resorted_tags)
 
         if old_tags != new_tags:
+            log
             subprocess.call(["timew", "untag", "@1"] + old_tags + [":yes", ":adjust"])
             subprocess.call(["timew", "tag", "@1"] + new_tags + [":yes", ":adjust"])
 

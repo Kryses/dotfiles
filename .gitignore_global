@@ -6,3 +6,4 @@
 local-project.toml
 .venv
 *.swp
+pyrightconfig.json

@@ -19,7 +19,6 @@ alias docked-wacom='autorandr -l docked-wacom'
 alias confz='nvim ~/.zshrc'
 alias conft='nvim ~/.tmux.conf'
 alias ac='source ./venv/bin/activate'
-alias work='cd ~/repos/work'
 alias tmux='tmux -2'
 alias main='~/scripts/development/open-main.sh'
 alias kz='zellij kill-all-sessions'
@@ -51,6 +50,7 @@ alias gpl="git pull"
 alias gst="git stash"
 alias gsp="git stash; git pull"
 alias gcheck="git checkout"
+alias gg="lazygit"
 
 
 #------------------------------------------------------------
@@ -71,27 +71,17 @@ alias vmstop='virsh --connect qemu:///system destroy win11'
 # EDIT CONFIG FILES
 # -----------------------------------------------------
 
-alias confq='nvim ~/dotfiles/qtile/config.py'
-alias confp='nvim ~/dotfiles/picom/picom.conf'
-alias confb='nvim ~/dotfiles/.bashrc'
-alias confz='nvim ~/dotfiles/zsh-custom'
-alias conft='nvim ~/dotfiles/.tmux.conf'
-alias confn='nvim ~/.config/nvim/lua/user'
+alias conf-qtile='nvim ~/dotfiles/qtile/config.py'
+alias conf-picom='nvim ~/dotfiles/picom/picom.conf'
+alias conf-bash='nvim ~/dotfiles/.bashrc'
+alias conf-zsh='nvim ~/dotfiles/zsh-custom'
+alias conf-tmux='nvim ~/dotfiles/tmux/.tmux.conf'
+alias conf-dot='cd ~/dotfiles && nvim'
+alias conf-nvim='cd ~/.config/nvim && nvim'
 
-# -----------------------------------------------------
-# ZELLIJ
-# -----------------------------------------------------
+alias work='cd ~/work/repos'
+alias ayon-workspace='cd ~/work/repos/ayon-workspace'
 
-alias zmain='zellij a main'
-alias zdev='zellij a dev'
-alias zwork='zellij a work'
-alias zorg='zellij a org'
-alias zsystem='zellij a system'
-alias zdot='zellij a dot'
-
-znew() {
-    zellij -l $1
-}
 
 cwork() {
     ssh $(pass work/hl/hal-ssh-ip) -p 2222 
@@ -105,3 +95,6 @@ work-sync() {
     rsync -e "ssh -p 2222" -rvaz --update --exclude='.git' ~/repos/work/pipeline-workspace $(pass work/hl/hal-ssh-ip):/mnt/e/development
 }
 
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

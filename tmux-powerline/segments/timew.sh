@@ -18,7 +18,9 @@ __process_settings() {
 
 run_segment() {
         __process_settings
-  echo -e $'\ueb67' $(timew | grep -o 'Tracking .*' | sed 's/Tracking //'
-)
+        if [ $(timew get dom.active) -eq 1 ]; then
+        	local tasktime="$(timew get dom.active.duration | egrep -o '[0-9]+[A-Z]' | head -n 1 | tr 'A-Z' 'a-z')"
+  				echo -e $'󱑆' $tasktime
+  			fi
 	return 0
 }
