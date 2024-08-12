@@ -28,12 +28,13 @@
 
 import json
 import logging
-import shlex
 import subprocess
 import sys
+import pathlib
+import os
 
-logging.basicConfig(filename="/tmp/timewarrior.log", level=logging.DEBUG)
-
+home = os.getenv('HOME')
+logging.basicConfig(filename=pathlib.Path(f"{home}/.local/share/task/timewarrior.log").resolve(), level=logging.DEBUG)
 # Hook should extract all the following for use as Timewarrior tags:
 #   UUID
 #   Project
@@ -48,13 +49,15 @@ except AttributeError:
 
 
 def extract_tags_from(json_obj):
-    # Extract attributes for use as tags.
-    tags = []
+    # Extract attributes for use as tags. tags = []
 
+    tags = []
     if "tags" in json_obj:
         for tag in json_obj["tags"]:
             if "jira" not in tag:
                 tags.insert(0, tag)
+            else:
+                tags.append(tag)
 
     if "project" in json_obj:
         tags.insert(0, "project|" + json_obj["project"])
