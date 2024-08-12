@@ -18,6 +18,7 @@ def main():
     task_path = pathlib.Path(USER_HOME) / '.task'
 
     os.chdir(task_path)
+    subprocess.Popen(shlex.split("git reset --hard"))
     subprocess.Popen(shlex.split("git pull"))
 
 
