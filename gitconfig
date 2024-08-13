@@ -1,3 +1,26 @@
 [user]
-	email = thechad802@gmail.com
 	name = Chad Provencher
+	email = thechad802@gmail.com
+[credential]
+	helper = store --file ~/.password-store/git-credentials.pass
+[core]
+	excludesFile = /home/kryses/.gitignore_global
+[init]
+	defaultBranch = main
+  	editor = nvim
+	filemode = false
+	excludesfile = ~/.gitignore_global
+
+[pull]
+  ff = no
+[merge]
+  ff = false
+
+[merge "no-binary-merge"]
+  name = Prevent automatic merging of binary files
+
+[mergetool]
+  prompt = true
+
+[mergetool "nvim"]
+  cmd = nvim -f -c \"DiffviewOpen\" \"$MERGED\"
