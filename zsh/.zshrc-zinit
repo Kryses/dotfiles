@@ -41,6 +41,7 @@ zinit snippet OMZP::rsync
 zinit snippet OMZP::tmux
 zinit snippet OMZP::taskwarrior
 zinit snippet OMZP::aws
+zinit snippet OMZP::docker
 
 
 # Load completions

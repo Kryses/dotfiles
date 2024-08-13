@@ -24,7 +24,7 @@ log.file=~/.local/share/task/task.log
 #data.location=~/.local/share/task
 hooks.location=~/.config/task/hooks/
 
-default.project=inbox
+default.project=home
 priority.default=M
 size.default=M
 # Color theme (uncomment one to use)
@@ -54,17 +54,18 @@ active.indicator=🕑
 #Contexts
 context.WK = +work 
 context.HM = +home
-context.HAB = +hab #habits
-context.HOME = +hm or +hab
+context.HAB = +habbit #habits
+context.HOME = +home or +home
 context.INBOX = project:inbox
 
 alias.punt = modify wait:1d
 alias.somday = wait:somday
-alias.up-wk = project:work +WK +unplanned due:tomorrow priority:H
-alias.up-hm = project:home +hm +unplanned due:tomorrow priority:H
-alias.up-yt = project:home +hm +youtube +unplanned due:tomorrow priority:H
+alias.work = project:ENG +work
+alias.unplanned-wk = project:work +WK +unplanned due:tomorrow priority:H
+alias.unplanned-hm = project:home +hm +unplanned due:tomorrow priority:H
+alias.unplanned-yt = project:home +hm +youtube +unplanned due:tomorrow priority:H
 alias.meeting = project:work +WK +meeting due:tomorrow priority:H
-alias.up-meeting = project:work +WK +unplanned +meeting due:tomorrow priority:H
+alias.unplanned-meeting = project:work +WK +unplanned +meeting due:tomorrow priority:H
 alias.chore = project:home +hm +next due:tomorrow priority:H
 alias.sleep = project:home +hm +sleep +next due:tomorrow priority:H
 alias.home = +hm or +hab
@@ -93,7 +94,7 @@ report.side.columns=id,priority,description,urgency
 report.side.sort=urgency-
 report.side.filter=(-COMPLETED -DELETED -WAITING) and limit:page
 
-urgency.user.tag.next.coefficient=15.0 # +next tag
+urgency.user.tag.next.coefficient=15.0  +next tag
 urgency.due.coefficient=12.0 # overdue or near due date
 urgency.blocking.coefficient=8.0 # blocking other tasks
 urgency.uda.priority.F.coefficient=8.0 # fire Priority
@@ -126,6 +127,7 @@ urgency.user.tag.powerlifter.coefficient=1.24
 urgency.user.tag.mile_runner.coefficient=1.23
 urgency.user.tag.flow_master.coefficient=1.22
 urgency.user.tag.sociallite.coefficient=1.21
+urgency.user.tag.review.coefficient=-10.0
 
 ## Long Term 0.5_1.0
 
@@ -151,7 +153,10 @@ urgency.user.tag.tech_trailblazer.coefficient=0.2
 urgency.user.tag.DELEGATED.coefficient=-15.0    
 urgency.user.tag.blocked.coefficient=-10.0    
 urgency.user.tag.support.coefficient=1.0    
-urgency.user.tag.in_review.coefficient=-10.0    
+urgency.user.tag.review.coefficient=-10.0    
+urgency.user.tag.blocked.coefficient=-10.0    
+color.tag.blocked=red
+color.tag.review=blue
 
 
 uda.priority.values=F,H,M,L
@@ -159,6 +164,14 @@ uda.priority.values=F,H,M,L
 uda.size.type=string
 uda.size.label=Size 😅
 uda.size.default=S
+
+#XXS: A minute
+#XS: 30mins
+#S: 1 hour
+#M  hours
+#L 1 Day
+#XL A few days
+#XXL A week
 uda.size.values=XXS,XS,S,M,L,XL,XXL
 urgency.uda.size.XXS.coefficient=1.5
 urgency.uda.size.XS.coefficient=1.25
@@ -166,6 +179,7 @@ urgency.uda.size.S.coefficient=1.0
 urgency.uda.size.M.coefficient=0.0
 urgency.uda.size.L.coefficient=-0.5
 urgency.uda.size.XL.coefficient=-2.0
+urgency.uda.size.XXL.coefficient=-4.0
 
 uda.pts.type=numeric
 uda.pts.label=Score 🏆
