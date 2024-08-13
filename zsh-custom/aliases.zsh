@@ -24,6 +24,7 @@ alias main='~/scripts/development/open-main.sh'
 alias kz='zellij kill-all-sessions'
 alias halon-up='nmcli connection up Halon'
 alias halon-down='nmcli connection down Halon'
+alias connect-pipeline="ssh -i $(pass work/hl/aws-ssh)"
 
 #------------------------------------------------------------
 # Aliases from qtile tutorial
