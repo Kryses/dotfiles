@@ -2,7 +2,7 @@
 	name = Chad Provencher
 	email = thechad802@gmail.com
 [credential]
-	helper = store --file ~/.password-store/git-credentials.pass
+	helper = cache
 [core]
 	excludesFile = /home/kryses/.gitignore_global
 [init]

@@ -2,7 +2,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export OPENAI_API_KEY="$(pass personal/open-ai-api)"
+export OPENAI_KEY="$(pass personal/open-ai-api)"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 export EDITOR=nvim
@@ -41,6 +41,7 @@ zinit snippet OMZP::rsync
 zinit snippet OMZP::tmux
 zinit snippet OMZP::taskwarrior
 zinit snippet OMZP::aws
+zinit snippet OMZP::docker
 
 
 # Load completions
