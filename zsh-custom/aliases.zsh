@@ -88,7 +88,7 @@ alias ayon-workspace='cd ~/work/repos/ayon-workspace'
 
 
 cwork() {
-    ssh $(pass work/hl/hal-ssh-ip) -p 2222 
+    ssh $(pass work/hl/hal-ssh-ip) -i ~/.ssh/id_rsa -p 22 
 }
 alias workm='sshfs $(pass work/hl/hal-ssh-ip):E:/development ~/repos/work'
 prime-run() {
