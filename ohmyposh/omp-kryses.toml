@@ -19,20 +19,22 @@ leading_diamond = "\ue0b6"
 [blocks.segments.properties]
 macos = "mac"
 
+
 [[blocks.segments]]
 type = "path"
 style = "plain"
 foreground = "p:gold"
 background = "p:black"
-template = "\uf07b \uea9c {{ .Path }}"
+template = "{{ .Path }}"
 
 [blocks.segments.properties]
-style = "full"
-
+style = "agnoster_short"
+folder_separator_icon	= " 󰅂 "
+max_depth = 3
 [[blocks.segments]]
 type = "git"
 plain = "plain"
-foreground = "#193549"
+foreground = "p:gold_dark"
 background = "transparent"
 template = " {{.HEAD }}{{ if or (.Working.Changed) (.Staging.Changed)}}*{{end}}<cyan>{{ if gt .Behind 0 }} 󰶡 {{end}}{{ if gt .Ahead 0 }} 󰶣 {{end}}</>"
 
@@ -41,19 +43,21 @@ fetch_status = true
 
 
 [[blocks]]
-type = "rprompt"
-overflow = 'hidden'
+type = "prompt"
+alignment = "right"
+overflow = "hide"
 
 [[blocks.segments]]
-type = 'executiontime'
-style = 'plain'
-foreground = 'yellow'
-background = 'transparent'
+type = "session"
+style = "plain"
+foreground = "p:gold"
+background = "p:black"
+template = "{{ if .SSHSession }} {{ end }}{{ .UserName }}</>@<cyan>{{ .HostName }} "
 
-[blocks.segments.properties]
-threshold = 5000
-style = 'round'
-
+[[blocks]]
+type = "prompt"
+alignment = "right"
+overflow = "hide"
 
 [[blocks.segments]]
 background = "#306998"
@@ -73,6 +77,22 @@ foreground = "#193549"
 background = "#ffeb3b"
 template = " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Version }} {{.Version}}{{ end }} {{ if .Name }}{{ .Name }}{{ end }}{{ end }} "
 
+[[blocks]]
+type = "rprompt"
+overflow = 'hide'
+newline = true
+
+
+[[blocks.segments]]
+type = 'executiontime'
+style = 'plain'
+foreground = 'yellow'
+background = 'transparent'
+
+
+[blocks.segments.properties]
+threshold = 5000
+style = 'round'
 
 [[blocks]]
 type = "prompt"
@@ -108,4 +128,5 @@ template = ' '
 
 [palette]
 gold = '#d4af37'
+gold_dark = '#a39370'
 black = '#251f11'
