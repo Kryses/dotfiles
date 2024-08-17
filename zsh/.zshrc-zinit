@@ -1,6 +1,9 @@
-export OPENAI_API_KEY="$(pass personal/open-ai-api)"
+export OPENAI_KEY="$(pass personal/open-ai-api)"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
+if [ ! -x "$HOME/.local/bin/oh-my-posh" ]; then
+  curl -s https://ohmyposh.dev/install.sh | bash -s
+fi
 
 if [ ! -d "$ZINIT_HOME" ]; then
   mkdir -p "$(dirname $ZINIT_HOME)"
@@ -9,6 +12,7 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
+ 
 # add plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -33,7 +37,6 @@ zinit snippet OMZP::rsync
 zinit snippet OMZP::tmux
 zinit snippet OMZP::taskwarrior
 zinit snippet OMZP::aws
-zinit snippet OMZP::docker
 
 
 # Load completions
@@ -82,4 +85,4 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
 
-eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/omg-kryses.toml)"
+eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/omp-kryses.toml)"
