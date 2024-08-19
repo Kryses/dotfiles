@@ -1,25 +1,9 @@
-# Print the current date.
+show_project() {
+  local index=$1
+  local icon="$(get_tmux_option "@catppuccin_project_icon" "")"
+  local color="$(get_tmux_option "@catppuccin_project_color" "$thm_blue")"
+  local text="$(get_tmux_option "@catppuccin_project_text" "Test")"
+  local module=$( build_status_module "$index" "$icon" "$color" "$text" )
 
-TMUX_POWERLINE_SEG_DATE_FORMAT_DEFAULT="%F"
-
-generate_segmentrc() {
-	read -d '' rccontents  << EORC
-# date(1) format for the date. If you don't, for some reason, like ISO 8601 format you might want to have "%D" or "%m/%d/%Y".
-export TMUX_POWERLINE_SEG_DATE_FORMAT="${TMUX_POWERLINE_SEG_DATE_FORMAT_DEFAULT}"
-EORC
-	echo "$rccontents"
-}
-
-__process_settings() {
-	if [ -z "$TMUX_POWERLINE_SEG_DATE_FORMAT" ]; then
-		export TMUX_POWERLINE_SEG_DATE_FORMAT="${TMUX_POWERLINE_SEG_DATE_FORMAT_DEFAULT}"
-	fi
-}
-
-run_segment() {
-        __process_settings
-        if [ $(timew get dom.active) -eq 1 ]; then
-  					echo \  $(timew | grep -oP 'project\|\K[^"]+' | cut -c 1-30)
-  			fi
-	return 0
+  echo "$module"
 }
