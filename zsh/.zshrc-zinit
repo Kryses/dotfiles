@@ -1,8 +1,20 @@
+export PATH="$PATH:$HOME/.local/bin:$HOME/.nvm:$HOME/.npm"
 export OPENAI_KEY="$(pass personal/open-ai-api)"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
+if [ ! -d "$HOME/.pyenv" ]; then
+  git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+  cd ~/.pyenv && src/configure && make -C src
+  pyenv install '3.9.13'
+  pyenv global '3.9.13'
+fi
+
 if [ ! -x "$HOME/.local/bin/oh-my-posh" ]; then
-  curl -s https://ohmyposh.dev/install.sh | bash -s
+  curl -s https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/website/static/install.sh | bash -s
+fi
+
+if [ ! -x "$HOME/.local/bin/poetry" ]; then
+  curl -sSL https://install.python-poetry.org | python3 -
 fi
 
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -86,3 +98,7 @@ eval "$(pyenv init --path)"
 
 
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/omp-kryses.toml)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

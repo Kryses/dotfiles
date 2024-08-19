@@ -21,6 +21,11 @@ eggplant="#154c79"
 spotify_green="#1db954"
 spotify_black="#191414"
 thm_orange="#f5a97f"
+theme_gold=""
+gold='#d4af37'
+gold_dark='#a39370'
+black='#251f11'
+
 source "/home/kryses/.tmux/plugins/tmux-powerline/lib/powerline.sh"
 
 
@@ -43,7 +48,8 @@ TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SEPARATOR=${TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SE
 
 if [ -z "$TMUX_POWERLINE_WINDOW_STATUS_CURRENT" ]; then
 	TMUX_POWERLINE_WINDOW_STATUS_CURRENT=(
-		"#[$(format regular)]"
+		"[:lower:]"
+		"#[$(format regular)] "
 		"$TMUX_POWERLINE_DEFAULT_RIGHTSIDE_SEPARATOR"
 		"#[$(format inverse)]"
 		" #I#F "
@@ -102,13 +108,12 @@ if [ -z $TMUX_POWERLINE_LEFT_STATUS_SEGMENTS ]; then
 	TMUX_POWERLINE_LEFT_STATUS_SEGMENTS=(
 		# "tmux_session_info $theme_light $theme_background" \
 		# "notification_count 236 136" \
-		"hostname 236 136" \
-		"pwd 235 136" \
+		"hostname 236 $gold" \
+		"pwd 235 $gold" \
 		# "ifstat 30 255" \
 		#"ifstat_sys 30 255" \
 		# "lan_ip $sky_blue $thm_bg ${TMUX_POWERLINE_SEPARATOR_RIGHT_THIN}" \
 		#"wan_ip $sky_blue $thm_bg" \
-		"vcs_branch $theme_gray" \
 		# "vcs_compare 60 255" 
 		# "vcs_staged 64 255" \
 		# "vcs_modified 9 255" \
@@ -126,14 +131,14 @@ if [ -z $TMUX_POWERLINE_RIGHT_STATUS_SEGMENTS ]; then
 		# "load 237 167" \
 		#"rainbarf 0 ${TMUX_POWERLINE_DEFAULT_FOREGROUND_COLOR}" \
 		#"xkb_layout 125 117" \
-		"project 235 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
-		"task 236 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
-		"timew 237 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
-		"current_tasks 238 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
-		"date_day 239 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
-		"date 240 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
+		"project 235 $gold ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
+		"task 236 $gold ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
+		"timew 237 $gold ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
+		"current_tasks 238 $gold ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
+		"date_day 239 $gold ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
+		"date 240 $gold ${TMUX_POWERLINE_SEPARATOR_LEFT_THIN}" \
 		# "weather 37 255" ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD} \
-		"time 241 136 ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" 
+		"time 241 $gold ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" 
 		# "battery $thm_blue  $thm_bg ${TMUX_POWERLINE_SEPARATOR_LEFT_BOLD}" \
 	)
 fi
