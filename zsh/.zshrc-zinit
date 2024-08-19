@@ -1,11 +1,9 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-export OPENAI_API_KEY="$(pass personal/open-ai-api)"
+export OPENAI_KEY="$(pass personal/open-ai-api)"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-export EDITOR=nvim
+if [ ! -x "$HOME/.local/bin/oh-my-posh" ]; then
+  curl -s https://ohmyposh.dev/install.sh | bash -s
+fi
 
 if [ ! -d "$ZINIT_HOME" ]; then
   mkdir -p "$(dirname $ZINIT_HOME)"
@@ -14,9 +12,7 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-# add powerlevel10k
-zinit ice depth=1; zinit light romkatv/powerlevel10k 
-
+ 
 # add plugins
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -41,15 +37,12 @@ zinit snippet OMZP::rsync
 zinit snippet OMZP::tmux
 zinit snippet OMZP::taskwarrior
 zinit snippet OMZP::aws
-zinit snippet OMZP::docker
 
 
 # Load completions
 
 autoload -U compinit && compinit
 zinit cdreplay -q
-
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Keybinds
 bindkey -v
@@ -92,3 +85,4 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 
 
+eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/omp-kryses.toml)"
