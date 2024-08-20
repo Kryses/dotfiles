@@ -32,10 +32,10 @@ size.default=M
 #include light-256.theme
 #include dark-16.theme
 #include dark-256.theme
-#include dark-red-256.theme
+include dark-red-256.theme
 #include dark-green-256.theme
 #include dark-blue-256.theme
-#include dark-violets-256.theme
+# include dark-violets-256.theme
 #include dark-yellow-green.theme
 #include dark-gray-256.theme
 #include dark-gray-blue-256.theme
@@ -53,9 +53,8 @@ active.indicator=🕑
 
 #Contexts
 context.WK = +work 
-context.HM = +home
 context.HAB = +habbit #habits
-context.HOME = +home or +home
+context.HOME = project:home or project:habbit
 context.INBOX = project:inbox
 
 alias.punt = modify wait:1d
@@ -82,11 +81,12 @@ report.in.labels = ID,Tags,Description
 report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
 report._reviewed.columns=uuid
 report._reviewed.sort=reviewed+,modified+
-report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING ) 
+
 
 ##Next
-report.next.labels=Id,Description,Active,󰖡,󰘃,󰔹,Project,,󱑈,󱫌,due,
-report.next.columns=id,description.count,start.age,size,priority,pts,project,tags.count,scheduled.countdown,due.countdown,due,urgency
+report.next.labels=Id,Description,Active,󰖡,󰘃,󰔹,Project,,󱑈,󱫌,due,,Reviewed
+report.next.columns=id,description.count,start.age,size,priority,pts,project,tags.count,scheduled.countdown,due.countdown,due,urgency,reviewed
 
 ##sidebar
 report.side.labels=Id,(P),Description,urg
