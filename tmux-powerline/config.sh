@@ -2,8 +2,6 @@
 # Modeline {
 #	 vi: foldmarker={,} foldmethod=marker foldlevel=0 tabstop=4 filetype=sh
 # }
-set -x
-exec 2>/tmp/tmux-powerline.log
 # General {
 	# Show which segment fails and its exit code.
 	export TMUX_POWERLINE_DEBUG_MODE_ENABLED="true"
@@ -18,13 +16,13 @@ exec 2>/tmp/tmux-powerline.log
 	export TMUX_POWERLINE_DIR_USER_SEGMENTS="${XDG_CONFIG_HOME:-$HOME/.config}/tmux-powerline/segments"
 
 	# The initial visibility of the status bar. Can be {"on, off"}.
-	export TMUX_POWERLINE_STATUS_VISIBILITY="on"
+	export TMUX_POWERLINE_STATUS_VISIBILITY="2"
 	# The status bar refresh interval in seconds.
 	# Note that events that force-refresh the status bar (such as window renaming) will ignore this.
 	export TMUX_POWERLINE_STATUS_INTERVAL="1"
 	# The location of the window list. Can be {"absolute-centre, centre, left, right"}.
 	# Note that "absolute-centre" is only supported on `tmux -V` >= 3.2.
-	export TMUX_POWERLINE_STATUS_JUSTIFICATION="centre"
+	export TMUX_POWERLINE_STATUS_JUSTIFICATION="absolute-centre"
 
 	# The maximum length of the left status bar.
 	export TMUX_POWERLINE_STATUS_LEFT_LENGTH="60"
@@ -108,7 +106,7 @@ exec 2>/tmp/tmux-powerline.log
 	# See http://support.google.com/accounts/bin/answer.py?hl=en&answer=185833 for more info.
 	export TMUX_POWERLINE_SEG_MAILCOUNT_GMAIL_PASSWORD=""
 	# Domain name that will complete your email. For normal GMail users it probably is "gmail.com but can be "foo.tld" for Google Apps users.
-	export TMUX_POWERLINE_SEG_MAILCOUNT_GMAIL_SERVER="gmail.com"
+	export TMUX_POWERLINE_SEG_MAILCOUNT_GMAIL_SERVER="thechad802@gmail.com"
 	# How often in minutes to check for new mails.
 	export TMUX_POWERLINE_SEG_MAILCOUNT_GMAIL_INTERVAL="5"
 	
