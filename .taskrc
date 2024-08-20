@@ -24,7 +24,7 @@ log.file=~/.local/share/task/task.log
 #data.location=~/.local/share/task
 hooks.location=~/.config/task/hooks/
 
-default.project=home
+default.project=inbox
 priority.default=M
 size.default=M
 # Color theme (uncomment one to use)
@@ -216,3 +216,4 @@ taskd.key=\/home\/kryses\/.task\/kryses.key.pem
 taskd.credentials=Kryses\/kryses\/46db8d6e-be28-4dc4-b191-8a9f7cd171d4
 taskd.server = 192.168.1.224:53589
 taskd.trust = allow all
+taskd.editor=nvim
