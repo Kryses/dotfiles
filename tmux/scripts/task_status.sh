@@ -7,7 +7,7 @@ INBOX_ICON='󰋻'
 overdue_tasks=$(task count +OVERDUE)
 due_today=$(task count due.before:eow +READY)
 scheduled=$(task count scheduled.before:eow +READY)
-inbox=$(task count project:inbox)
+inbox=$(task count "(reviewed.none: or reviewed.before:now-6days) and (+PENDING or +WAITING)")
 
 
 return_string=""
