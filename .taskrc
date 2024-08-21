@@ -32,7 +32,7 @@ size.default=M
 #include light-256.theme
 #include dark-16.theme
 #include dark-256.theme
-include dark-red-256.theme
+# include dark-red-256.theme
 #include dark-green-256.theme
 #include dark-blue-256.theme
 # include dark-violets-256.theme
@@ -210,10 +210,9 @@ uda.jirastatus.label=Jira Status
 uda.jirasubtasks.type=string
 uda.jirasubtasks.label=Jira Subtasks
 
-taskd.certificate=\/home\/kryses\/.task\/kryses.cert.pem
-taskd.key=\/home\/kryses\/.task\/kryses.key.pem
 #taskd.ca=\/home\/kryses\/.task\/ca.cert.pem
-taskd.credentials=Kryses\/kryses\/46db8d6e-be28-4dc4-b191-8a9f7cd171d4
-taskd.server = 192.168.1.224:53589
-taskd.trust = allow all
 taskd.editor=nvim
+sync.server.origin=http:\/\/192.168.1.234:8080
+sync.server.client_id=ea68034d-ac3a-4249-aed0-1f82e41cb493
+recurrence=off
+sync.encryption_secret=c79ef59f-b687-4cee-8a21-c2f2c99f9d75
