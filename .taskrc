@@ -35,7 +35,7 @@ size.default=M
 # include dark-red-256.theme
 #include dark-green-256.theme
 #include dark-blue-256.theme
-include dark-violets-256.theme
+# include dark-violets-256.theme
 #include dark-yellow-green.theme
 #include dark-gray-256.theme
 #include dark-gray-blue-256.theme
@@ -216,3 +216,4 @@ sync.server.origin=http:\/\/192.168.1.234:8080
 sync.server.client_id=ea68034d-ac3a-4249-aed0-1f82e41cb493
 recurrence=off
 sync.encryption_secret=c79ef59f-b687-4cee-8a21-c2f2c99f9d75
+context=WK
