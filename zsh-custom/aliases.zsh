@@ -9,6 +9,7 @@ alias gp="pass -c "
 alias connect_server='ssh kryses@kryses-dev'
 alias tw='timew'
 alias t='vit'
+alias ta='task add'
 alias tw-shift='tw stop && tw start '
 alias tws='tw summary'
 alias twd='tw day'

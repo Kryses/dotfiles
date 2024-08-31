@@ -35,6 +35,7 @@ zinit light svenXY/timewarrior
 zinit light antonjs/zsh-gpt
 zinit light jeffreytse/zsh-vi-mode
 zinit light zx2c4/password-store
+zinit light ptavares/zsh-direnv
 
 # Snippets
 
