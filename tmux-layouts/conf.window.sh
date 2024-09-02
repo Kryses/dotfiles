@@ -1,0 +1,10 @@
+window_root "~/repos/game-dev/simple-game"
+new_window "conf"
+run_cmd "conf-dot"
+split_h 50
+run_cmd "conf-nvim"
+split_v 50
+run_cmd "conf-zsh"
+split_v 50
+run_cmd "conf-tmux"
+select_pane 0

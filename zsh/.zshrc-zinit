@@ -1,5 +1,6 @@
 export PATH="$PATH:$HOME/.local/bin:$HOME/.nvm:$HOME/.npm"
 export OPENAI_KEY="$(pass personal/open-ai-api)"
+export OPENAI_API_KEY="$(pass personal/open-ai-api)"
 export EDITOR="nvim"
 export SHELL="zsh"
 export TMUXIFIER_LAYOUT_PATH="$HOME/.config/tmux-layouts"
@@ -11,6 +12,7 @@ if [ ! -d "$HOME/.pyenv" ]; then
   pyenv install '3.9.13'
   pyenv global '3.9.13'
 fi
+
 
 if [ ! -x "$HOME/.local/bin/oh-my-posh" ]; then
   curl -s https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/website/static/install.sh | bash -s
@@ -40,6 +42,10 @@ zinit light zx2c4/password-store
 zinit light ptavares/zsh-direnv
 zinit light jimeh/tmuxifier
 
+if [ ! -x "$TMUXIFIER" ]; then
+  git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
+fi
+
 # Snippets
 
 zinit snippet OMZP::git
@@ -54,6 +60,8 @@ zinit snippet OMZP::rsync
 zinit snippet OMZP::tmux
 zinit snippet OMZP::taskwarrior
 zinit snippet OMZP::aws
+
+
 
 
 # Load completions
