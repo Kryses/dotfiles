@@ -5,5 +5,8 @@
 .windows-env/*
 local-project.toml
 .venv
+.envrc
+.env
 *.swp
 pyrightconfig.json
+poetry.lock
