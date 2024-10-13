@@ -12,3 +12,4 @@ pyrightconfig.json
 poetry.lock
 pylintrc
 .mypy.ini
+.tmuxinator.yml
