@@ -4,5 +4,5 @@ run_cmd "nvim"
 split_v 20
 run_cmd "poetry shell"
 split_h 60
-run_cmd "yazi"
+run_cmd "cd ./.kryses && ./watch-toolkit.sh"
 select_pane 0

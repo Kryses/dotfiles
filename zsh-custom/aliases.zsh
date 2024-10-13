@@ -53,6 +53,7 @@ alias gst="git stash"
 alias gsp="git stash; git pull"
 alias gcheck="git checkout"
 alias gg="lazygit"
+alias y="yazi"
 
 
 #------------------------------------------------------------
@@ -89,7 +90,7 @@ alias ayon-workspace='cd ~/work/repos/ayon-workspace'
 
 
 cwork() {
-    ssh $(pass work/hl/hal-ssh-ip) -i ~/.ssh/id_rsa -p 22 
+    ssh -o ServerAliveInterval=60 $(pass work/hl/hal-ssh-ip) -i ~/.ssh/id_rsa -p 22 
 }
 alias workm='sshfs $(pass work/hl/hal-ssh-ip):E:/development ~/repos/work'
 prime-run() {
