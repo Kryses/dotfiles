@@ -10,3 +10,6 @@ local-project.toml
 *.swp
 pyrightconfig.json
 poetry.lock
+pylintrc
+.mypy.ini
+.tmuxinator.yml
