@@ -13,3 +13,4 @@ poetry.lock
 pylintrc
 .mypy.ini
 .tmuxinator.yml
+start_project.sh
