@@ -1,4 +1,5 @@
 export PATH="$PATH:$HOME/.local/bin:$HOME/.nvm:$HOME/.npm"
+export PATH="$HOME/.local/share/gem/ruby/3.2.0/bin:$PATH"
 export PATH="/mnt/c/Windows/System32:$PATH"
 export PATH="/mnt/c/Windows:$PATH"
 export PATH="/mnt/c/Program\ Files/GPSoftware/Directory Opus:$PATH"
@@ -45,7 +46,6 @@ zinit light antonjs/zsh-gpt
 zinit light jeffreytse/zsh-vi-mode
 zinit light zx2c4/password-store
 zinit light ptavares/zsh-direnv
-zinit light jimeh/tmuxifier
 
 if [ ! -x "$TMUXIFIER" ]; then
   git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
