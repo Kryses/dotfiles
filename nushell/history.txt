@@ -1,0 +1,239 @@
+ls
+ls | sort
+ls | sort-by type
+ls | sort-by type | reverse
+ps
+help commands
+help commands | where name == each | first
+ls -h
+ls **
+clear
+ls "[tmux]"
+ls "[Downloads]"
+ls "**/[Downloads]"
+cd ...
+ls
+cd ~
+ls
+ls | length
+"12" | into int
+cd dotfiles/
+ls
+nvim
+chsh -s $(which nu)
+chsh -s /bin/nu
+exit
+tmux
+exit
+tmux
+tmux kill-server
+cd dotfiles/
+ls
+cd ..
+cd .config/
+ls
+zsh
+exit
+eza
+ls
+ls -l
+oh-my-posh init nu --config ~/dotfiles/ohmyposh/omp-kryses.nu
+oh-my-posh --help
+oh-my-posh -c ~/dotfiles/ohmyposh/omp-kryses.toml
+oh-my-posh init nu --config ~/dotfiles/ohmyposh/omp-kryses.toml
+oh-my-posh init nu
+ls
+cd ..
+ls | grep oh
+oh-my-posh
+oh-my-posh -h
+curl -s https://ohmyposh.dev/install.sh | bash -s
+oh-my-posh init nushell --config /home/kryses/dotfiles/ohmyposh/omp-kryses.nu
+oh-my-posh init nu --config /home/kryses/dotfiles/ohmyposh/omp-kryses.nu
+oh-my-posh init nu --config /home/kryses/dotfiles/ohmyposh/omp-kryses_1.toml
+nvim
+cd ohmyposh/
+ls
+oh-my-posh init bash --config /home/kryses/dotfiles/ohmyposh/omp-kryses_1.toml
+oh-my-posh init nu --config /home/kryses/dotfiles/ohmyposh/omp-kryses_1.toml
+oh-my-posh init nu --config /home/kryses/dotfiles/ohmyposh/omp-kryses_1.json
+oh-my-posh init zsh
+oh-my-posh init nu
+oh-my-posh init 
+oh-my-posh init fish
+oh-my-posh init nu
+zsh
+oh-my-posh init nu --config ~/.poshthemes/M365Princess.omp.json
+source ~/.oh-my-posh.nu
+ls
+ls -la
+ls -a
+cat .oh-my-posh.nu
+cp .oh-my-posh.nu ~/dotfiles/ohmyposh/
+cd dotfiles/
+v
+$nu.config-path="~/dotfiles/ohmyposh/.oh-my-posh.nu"
+clear
+ls
+cd ~/.config/nvim/
+l
+sls
+nvim
+npm install tree-sitter-cli
+nvim
+exit
+nu
+exit
+source ~/dotfiles/nushell/env.nu
+print $env.PATH
+source ~/dotfiles/nushell/env.nu
+print $env.PATH
+tmux
+source ~/dotfiles/nushell/env.nu
+print $env.PATH
+tmux
+source ~/dotfiles/nushell/config.nu
+tmux
+echo $env.Path
+print $env.PATH
+source ~/dotfiles/nushell/config.nu
+print $env.PATH
+tmuxinator config
+print $env.OPENAI_KEY
+ls
+poetry
+pyenv
+python --version
+chatgpt
+rg
+fzf
+exit
+connect_server 
+exit
+exi
+exit
+df
+tws
+twd
+df
+exit
+tw-shift 
+exit
+notes
+tmux
+tmux kill-server
+date now | date to-timezone "Europe/London"
+[[framework, language]; [Django, Python] [Laravel, PHP]]
+[{name: 'Robert' age: 34 position: 'Designer'}<\n> {name: 'Margaret' age: 30 position: 'Software Developer'}<\n> {name: 'Natalie' age: 50 position: 'Accountant'}<\n>] | select name position
+zoxide init nushell | save -f ~/.zoxide.nu
+cp .zoxide.nu ~/dotfiles/nushell/
+tmuxinator config
+tmuxinator --help
+tmuxinator start config
+cd dotfiles/
+v
+exit
+yay zoxide
+zoxide init nushell | save -f ~/dotfiles/nushell/.zoxide.nu
+nu --version
+$nu.env-path
+z
+exit
+z
+exit
+cd ayon-workspace
+z
+zi
+exit
+cd
+cd ayon-workspace
+exit
+cd ayon-workspace
+cd ..
+ls
+cd kryses/
+cd work/
+ls
+cd repos/ayon-workspace/
+cd
+cd ayon-workspace
+zi
+z ayon-workspace
+zi ..
+y
+zoxide
+cd ..
+cd kryses/
+cd work/repos/ayon-workspace/
+cd
+cd ayon-workspace
+yay carapace
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional<\n>mkdir ~/.cache/carapace<\n>carapace _carapace nushell | save --force ~/.cache/carapace/init.nu<\n>
+source ~/.cache/carapace/init.nu
+config nu
+ls
+config nu --default | nu-hightlit | lines
+config nu --default | nu-hightlight | lines
+config nu --default | nu-highlight | lines
+cat /etc/shells
+gs
+ls
+config --load
+chatgpt
+chatgpt --help
+chatgpt --list
+chatgpt --model gpt-4
+chatgpt --model gpt-4-0125-preview
+chatgpt
+chatgpt 
+work
+ls
+ls -la
+cd
+plugin list
+task
+c
+cd dotfiles
+ls
+where $it =~ 'kryses'
+where $it =~ kryses
+help tmux
+help git
+help ls
+ls ** | get tmux
+ls ** | get 'tmux'
+ls **/*.py
+ls **/*.py | fzf
+help ls
+ls -s
+help ls
+ls -du
+ls -d
+ls -d | get name
+ls -d | get name | save test.txt
+ls
+cat test.txt 
+rm ./test.txt
+ls -d | get name | fzf
+ls | get name | str join "\n" | fzf
+ls ** | get name | str join "\n" | fzf
+ls ** | nufzf 
+qs 
+cd ..
+git clone git@github.com:Kryses/nu_scripts.git
+exit
+cd nu_scripts
+cd ..
+cd nu_scripts/
+ls
+cd custom-menus/
+ls
+cd fuzzy/
+cd ..
+v
+y
+cd ..
+rm -r ./nu_scripts/
+exit
+yay jira
+yay nix

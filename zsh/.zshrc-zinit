@@ -9,7 +9,8 @@ export OPENAI_KEY="$(pass personal/open-ai-api)"
 export OPENAI_API_KEY="$(pass personal/open-ai-api)"
 export EDITOR="nvim"
 export SHELL="zsh"
-export TMUXIFIER_LAYOUT_PATH="$HOME/.config/tmux-layouts"
+export POETRY_HOME="$HOME/.local/share/pypoetry/venv/bin"
+export PATH="$POETRY_HOME:$PATH"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 if [ ! -d "$HOME/.pyenv" ]; then
@@ -47,10 +48,6 @@ zinit light jeffreytse/zsh-vi-mode
 zinit light zx2c4/password-store
 zinit light ptavares/zsh-direnv
 
-if [ ! -x "$TMUXIFIER" ]; then
-  git clone https://github.com/jimeh/tmuxifier.git ~/.tmuxifier
-fi
-
 # Snippets
 
 zinit snippet OMZP::git
@@ -66,9 +63,6 @@ zinit snippet OMZP::tmux
 zinit snippet OMZP::taskwarrior
 zinit snippet OMZP::aws
 zinit snippet OMZP::tmuxinator
-
-
-
 
 # Load completions
 
@@ -112,12 +106,11 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PATH:$PYENV_ROOT/bin"
 eval "$(pyenv init --path)"
 
 
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/omp-kryses.toml)"
-eval "$(tmuxifier init -)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
