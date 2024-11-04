@@ -103,6 +103,7 @@ $env.NU_PLUGIN_DIRS = [
 $env.PATH = ($env.Path | prepend ($env.HOME + "/.local/bin"))
 $env.PATH = ($env.Path | prepend ($env.HOME + "/.npm"))
 $env.PATH = ($env.Path | prepend ($env.HOME + "/.local/share/gem/ruby/3.2.0/bin"))
+$env.PATH = ($env.Path | prepend ($env.HOME + "/.nix-profile/bin"))
 
 $env.OPENAI_KEY = (pass 'personal/open-ai-api')
 $env.OPENAI_API_KEY = (pass 'personal/open-ai-api')
@@ -110,7 +111,7 @@ $env.EDITOR = "nvim"
 $env.POETRY_HOME = ($env.HOME + '.local/share/pypoetry/venv/bin')
 $env.PATH = ($env.Path | prepend $env.POETRY_HOME)
 
-source ~/dotfiles/nushell/.zoxide.nu
-source ~/dotfiles/ohmyposh/.oh-my-posh.nu
-source ~/dotfiles/nushell/aliases.nu
+source ~/.config/nushell/.zoxide.nu
+source ~/.config/ohmyposh/oh-my-posh.nu
+source ~/.config/nushell/aliases.nu
 source ~/.cache/carapace/init.nu
