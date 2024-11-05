@@ -25,7 +25,16 @@
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
+    pkgs.pyenv
+    pkgs.poetry
+    pkgs.ripgrep
+    pkgs.fd
+    pkgs.nushell
+    pkgs.carapace
+    pkgs.lazygit
+    pkgs.neovim
+    pkgs.yazi
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -39,6 +48,7 @@
   # plain files is through 'home.file'.
   home.file = {
     ".tmux.conf".source = ~/dotfiles/tmux/.tmux.conf;
+    ".taskrc".source = ~/.taskrc;
     ".config/nushell/aliases.nu".source = ~/dotfiles/nushell/aliases.nu;
     ".config/nushell/config.nu".source = ~/dotfiles/nushell/config.nu;
     ".config/nushell/env.nu".source = ~/dotfiles/nushell/env.nu;
@@ -83,7 +93,8 @@
   #  /etc/profiles/per-user/kryses/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
+    SHELL = "nu";
   };
 
   # Let Home Manager install and manage itself.

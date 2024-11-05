@@ -1,8 +1,7 @@
 { nixpkgs ? import <nixpkgs> { }}:
 let 
   pkgs = [
-    nixpkgs.neovim
-    nixpkgs.ripgrep
+    nixpkgs.home-manger
   ];
 in
   nixpkgs.stdenv.mkDerivation {
