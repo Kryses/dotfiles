@@ -7,14 +7,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
   outputs = inputs@{ self, nixpkgs, home-manager }:
     let
       configuration = { pkgs, ... }: {
         enviromnet.systemPackages = with pkgs;
           [
             vim
-            neovim
-            lazygit
+            direnv
+            sshs
           ];
       };
     in

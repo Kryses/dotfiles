@@ -110,8 +110,9 @@ $env.OPENAI_API_KEY = (pass 'personal/open-ai-api')
 $env.EDITOR = "nvim"
 $env.POETRY_HOME = ($env.HOME + '.local/share/pypoetry/venv/bin')
 $env.PATH = ($env.Path | prepend $env.POETRY_HOME)
+$env.LANG = 'US_EN.UTF-8'
 
-source ~/.config/nushell/.zoxide.nu
+source ~/.config/nushell/zoxide.nu
 source ~/.config/ohmyposh/oh-my-posh.nu
 source ~/.config/nushell/aliases.nu
 source ~/.cache/carapace/init.nu

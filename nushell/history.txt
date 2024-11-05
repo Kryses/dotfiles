@@ -1,7 +1,0 @@
-tmux attach
-exit
-tmux attach
-exit
-ls
-cd  dotfiles/
-ls
