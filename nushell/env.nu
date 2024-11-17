@@ -1,6 +1,6 @@
 # Nushell Environment Config File
 #
-# version = "0.97.1"
+# version = "0.92.1"
 
 def create_left_prompt [] {
     let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
@@ -11,7 +11,7 @@ def create_left_prompt [] {
 
     let path_color = (if (is-admin) { ansi red_bold } else { ansi green_bold })
     let separator_color = (if (is-admin) { ansi light_red_bold } else { ansi light_green_bold })
-    let path_segment = $"($path_color)($dir)(ansi reset)"
+    let path_segment = $"($path_color)($dir)"
 
     $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
 }
@@ -77,7 +77,6 @@ $env.ENV_CONVERSIONS = {
 # The default for this is $nu.default-config-dir/scripts
 $env.NU_LIB_DIRS = [
     ($nu.default-config-dir | path join 'scripts') # add <nushell-config-dir>/scripts
-    ($nu.data-dir | path join 'completions') # default home for nushell completions
 ]
 
 # Directories to search for plugin binaries when calling register
@@ -98,21 +97,7 @@ $env.NU_PLUGIN_DIRS = [
 # $env.PATH = ($env.PATH | uniq)
 
 # To load from a custom file you can use:
-# source ($nu.default-config-dir | path join 'custom.nu')
-
-$env.PATH = ($env.Path | prepend ($env.HOME + "/.local/bin"))
-$env.PATH = ($env.Path | prepend ($env.HOME + "/.npm"))
-$env.PATH = ($env.Path | prepend ($env.HOME + "/.local/share/gem/ruby/3.2.0/bin"))
-$env.PATH = ($env.Path | prepend ($env.HOME + "/.nix-profile/bin"))
-
-$env.OPENAI_KEY = (pass 'personal/open-ai-api')
-$env.OPENAI_API_KEY = (pass 'personal/open-ai-api')
-$env.EDITOR = "nvim"
-$env.POETRY_HOME = ($env.HOME + '.local/share/pypoetry/venv/bin')
-$env.PATH = ($env.Path | prepend $env.POETRY_HOME)
-$env.LANG = 'US_EN.UTF-8'
-
-source ~/.config/nushell/zoxide.nu
-source ~/.config/ohmyposh/oh-my-posh.nu
-source ~/.config/nushell/aliases.nu
-source ~/.cache/carapace/init.nu
+echo "loading envs"
+source ($nu.default-config-dir | path join 'zoxide.nu')
+source ($nu.default-config-dir | path join 'aliases.nu')
+source ($nu.default-config-dir | path join 'oh-my-posh.nu')

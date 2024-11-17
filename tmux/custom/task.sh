@@ -1,3 +1,5 @@
+#!/run/current-system/sw/bin/bash
+
 show_task() {
   local index=$1
   local icon="$(get_tmux_option "@catppuccin_task_icon" "")"

@@ -1,3 +1,4 @@
+#!/run/current-system/sw/bin/bash
 
 OVERDUE_ICON=''
 DUE_ICON='󱑁'

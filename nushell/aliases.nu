@@ -28,7 +28,6 @@ alias pf = pfetch
 alias chatgpt = chatgpt --model gpt-4-0125-preview
 alias shutdown = systemctl poweroff
 alias v = nvim
-alias winclass = xprop | grep 'CLASS'
 alias dot = cd ~/dotfiles
 
 # -----------------------------------------------------

@@ -90,7 +90,7 @@ jira.max_summary_length = 0
 jira.description_template = {{jiraid}} - {{jirasummary}}
 
 [notifications]
-notifications = True
+notifications = false
 backend = gobject
 finished_querying_sticky = False
 task_crud_sticky = True

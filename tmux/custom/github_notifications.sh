@@ -1,3 +1,4 @@
+#!/run/current-system/sw/bin/bash
 show_github_notifications() {
   local index=$1
   local icon="$(get_tmux_option "@catppuccin_github_notifications_icon" " ")"
